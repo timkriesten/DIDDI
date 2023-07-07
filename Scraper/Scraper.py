@@ -24,7 +24,7 @@ def scrapePalais(url,end_date):
         #find date
         print(el.attrs.get('data-date'))
         current_date = dt.datetime.strptime(el.attrs.get('data-date'),"%Y-%m-%d")
-        if(current_date>end_date):exit()
+        if(current_date>end_date): break
         #find all events at current date
         events = el.findAll('div',{'class':'skd-module-program-teaser-content'})
         #get information of events
@@ -64,7 +64,7 @@ def scrapePalais(url,end_date):
 
 #%%
 def scrapeSLUB(url,end_date):
-    soup = BeautifulSoup(response.text, "html.parser")  #response.text or response.content
+    soup = getSoup(url)  #response.text or response.content
 
      # "skd-calendar-events-target" contains all events of a day 
     elements = soup.findAll("div", {"class": r"event-container"}) #todo change to findAll
@@ -76,7 +76,7 @@ def scrapeSLUB(url,end_date):
         current_date = dt.datetime(my.year,my.month,int(el.find('span',{'class': 'day-number'}).text))
         event_time = el.find('div', {'class': 'metadata'}).text.split()[1]
         #stop searching when enddate is reached
-        if(current_date>end_date):exit()
+        if(current_date>end_date):break
         #titel
         event_title = el.find('a',{'class': 'title'}).text
         #Type

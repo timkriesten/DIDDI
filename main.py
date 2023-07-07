@@ -1,8 +1,8 @@
 import json
-from Scraper import Scraper
+from scraper import Scraper
 import datetime as dt
 
-end_date = dt.datetime(2023,6,30)
+end_date = dt.datetime(2023,7,14)
 
 # Load the list of websites from the JSON file
 with open(r"WebsitesToScrape\websites.json", "r") as json_file:
