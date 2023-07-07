@@ -15,7 +15,7 @@ class Event(BaseModel):
     # location_geo_data: ??
 
 
-## Erste Idee für die Klassendefinitionen:
+## Erste Idee für die Klassendefinitionen :
 
 class InputEventsScraperInterface(abc.ABC):
     '''
