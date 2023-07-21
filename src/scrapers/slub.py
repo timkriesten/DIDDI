@@ -1,8 +1,9 @@
-import locale
+from src.definitions import InputWebsiteScraper, Event
+from bs4 import BeautifulSoup
 import requests
 import datetime as dt
-from bs4 import BeautifulSoup
-from src.definitions import InputWebsiteScraper, Event
+import locale   #to handle timezones and dates
+
 
 class SLUBScraper(InputWebsiteScraper):
     name: str = "SLUB"

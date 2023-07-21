@@ -1,7 +1,7 @@
-import datetime as dt
-import requests
 from bs4 import BeautifulSoup
 from src.definitions import InputWebsiteScraper, Event
+import requests
+import datetime as dt
 
 class JapanischesPalaisScraper(InputWebsiteScraper):
     name: str = 'JapanischesPalais'
