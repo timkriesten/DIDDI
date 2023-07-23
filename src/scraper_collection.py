@@ -5,7 +5,7 @@ from src.definitions import InputWebsiteScraper, Event
 
 global_scrapers_list: list[InputWebsiteScraper] = [
         JapanischesPalaisScraper(),
-        SLUBScraper()
+        #SLUBScraper()
     ]
 
 class ScraperCollection():
