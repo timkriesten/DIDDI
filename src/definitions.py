@@ -31,5 +31,5 @@ class InputWebsiteScraper(abc.ABC):
                 f"{self.__class__.__name__} class must have a url attribute that is not None")
 
     @abc.abstractmethod
-    def scrape_events(self, end_date: dt.datetime, start_date: dt.datetime) -> list[Event]:
+    def scrape_events(self, end_date: dt.datetime, start_date: dt.datetime,**kwargs) -> list[Event]:
         ''' Every Sraper Class has to have a scrape_events method the returns a list of Event objects'''

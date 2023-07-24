@@ -5,7 +5,7 @@ from src.definitions import InputWebsiteScraper, Event
 
 global_scrapers_list: list[InputWebsiteScraper] = [
         JapanischesPalaisScraper(),
-        #SLUBScraper()
+        SLUBScraper()
     ]
 
 class ScraperCollection():
@@ -14,10 +14,10 @@ class ScraperCollection():
     def get_scraper_names(self):
         return list(self.scrapers.keys())
     
-    def get_all_events(self, end_date: dt.datetime, start_date: dt.datetime = dt.datetime.now()):
+    def get_all_events(self, end_date: dt.datetime, start_date: dt.datetime = dt.datetime.now(),**kwargs):
         events: list[Event] = []
         for _, scraper in self.scrapers.items():
-            events += scraper.scrape_events(start_date, end_date)
+            events += scraper.scrape_events(end_date=end_date,start_date=start_date)
         return events
 
 scraper_collection = ScraperCollection()

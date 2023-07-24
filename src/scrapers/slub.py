@@ -12,7 +12,7 @@ class SLUBScraper(InputWebsiteScraper):
 
     def scrape_events(self, start_date: dt.datetime, end_date: dt.datetime) -> list[Event]:
         print(self.name, 'Scraper started.')
-        events = []
+        events: list[Event] = []
         # get website
         response =  requests.get(self.url)
         #website response to text (response.text) or content (response.content)  
