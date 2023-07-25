@@ -10,8 +10,9 @@ class Event(BaseModel):
     location: str | None = None
     event_type: str | None = None
     description_short: str | None = None
-    descrption_long: str | None = None
+    description_long: str | None = None
     organiser: str | None = None
+    periodic: bool = False
     # location_geo_data: ??
 
 
