@@ -13,6 +13,7 @@ class Event(BaseModel):
     description_long: str | None = None
     organiser: str | None = None
     periodic: bool = False
+    online: bool = False
     # location_geo_data: ??
 
 
