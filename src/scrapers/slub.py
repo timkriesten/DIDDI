@@ -42,11 +42,11 @@ class SLUBScraper(InputWebsiteScraper):
             event_details = ''#TODO extract and add details
             # print and replace spaces, tabs and newline chars in event_type
             datetime_string = current_date.strftime('%Y-%m-%d')+' ' +event_time
-            print("{:<16}".format('Datum und Zeit: '),datetime_string)
-            print("{:<16}".format('Titel: '),re.sub(r'\s+',' ',event_title.lstrip()))
-            print("{:<16}".format('Typ: '),re.sub(r'\s+',' ',event_type))
-            print("{:<16}".format('Ort: '),re.sub(r'\s+',' ',event_location.lstrip()))
-            print("{:<16}".format('Beschreibung:'),'\n',event_details)
+            # print("{:<16}".format('Datum und Zeit: '),datetime_string)
+            # print("{:<16}".format('Titel: '),re.sub(r'\s+',' ',event_title.lstrip()))
+            # print("{:<16}".format('Typ: '),re.sub(r'\s+',' ',event_type))
+            # print("{:<16}".format('Ort: '),re.sub(r'\s+',' ',event_location.lstrip()))
+            # print("{:<16}".format('Beschreibung:'),'\n',event_details)
 
             # add event to event list
             events += [Event(
