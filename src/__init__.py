@@ -1,0 +1,1 @@
+from src.scraper_collection import scraper_collection
