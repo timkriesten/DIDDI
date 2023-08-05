@@ -3,10 +3,12 @@ import pandas as pd
 from src.scrapers.japanisches_palais import JapanischesPalaisScraper
 from src.scrapers.slub import SLUBScraper
 from src.definitions import InputWebsiteScraper, Event
+from src.scrapers.lokale_agenda import LokaleAgendaScraper
 
 global_scrapers_list: list[InputWebsiteScraper] = [
         JapanischesPalaisScraper(),
-        SLUBScraper()
+        SLUBScraper(),
+        LokaleAgendaScraper()
     ]
 
 class ScraperCollection():
