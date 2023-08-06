@@ -41,7 +41,8 @@ class LokaleAgendaScraper(InputWebsiteScraper):
                 event_time = help[0].split(', ')[1].replace(' Uhr', '')
                 event_start_date = dt.datetime.strptime(help[0].split(', ')[0], '%a. %d. %b %Y')
                 event_end_date =None
-            
+            #stop searching when enddate is reached
+            if(event_start_date>end_date):break
             # EVENT LOCATION
             event_location = help[1]
             # EVENT TIME
