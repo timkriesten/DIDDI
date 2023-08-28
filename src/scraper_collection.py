@@ -1,15 +1,23 @@
 import datetime as dt
 import pandas as pd
-from src.scrapers.japanisches_palais import JapanischesPalaisScraper
-from src.scrapers.slub import SLUBScraper
+import src.scrapers as scrapers
 from src.definitions import InputWebsiteScraper, Event
-from src.scrapers.lokale_agenda import LokaleAgendaScraper
 
+# TODO: make an automatic import from all scraper clases
 global_scrapers_list: list[InputWebsiteScraper] = [
-        JapanischesPalaisScraper(),
-        SLUBScraper(),
-        LokaleAgendaScraper()
+        scrapers.JapanischesPalais(),
+        scrapers.SLUB(),
+        scrapers.LokaleAgenda(),
+        scrapers.DHMD(),
+        scrapers.HTW(),
+        scrapers.InternationaleGaerten(),
+        scrapers.Kinokalender(),
+        scrapers.Medienkulturzentrum(),
+        scrapers.StuRa(),
+        scrapers.TUDresden(),
+        scrapers.Verbraucherzentrale()
     ]
+
 
 class ScraperCollection():
     scrapers: dict[str, InputWebsiteScraper] = {scraper.name: scraper for scraper in global_scrapers_list}
@@ -28,7 +36,7 @@ def events_list2df(events: list[Event]) -> pd.DataFrame:
     '''
     Converts a list of Event objects into a DataFrame with a column for each Event field.
     '''
-    fields = Event.__fields__.keys()
+    fields = Event.__fields__.keys() # type: ignore
     field_dict = {field: [getattr(event, field) for event in events] for field in fields}
     return pd.DataFrame(field_dict)
 

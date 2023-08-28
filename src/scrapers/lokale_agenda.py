@@ -4,9 +4,10 @@ import requests
 import datetime as dt
 import locale
 
-class LokaleAgendaScraper(InputWebsiteScraper):
-    name: str = 'Lokale Agenda'
-    url: str = 'https://la-dresden.de/startseite/veranstaltungen/'
+class LokaleAgenda(InputWebsiteScraper):
+    name = 'Lokale Agenda'
+    url = 'https://la-dresden.de/startseite/veranstaltungen/'
+    ready = True
 
     def scrape_events(self, end_date: dt.datetime, start_date: dt.datetime = dt.datetime.now()) -> list[Event]:
         print(self.name, 'Scraper started.')
@@ -58,7 +59,7 @@ class LokaleAgendaScraper(InputWebsiteScraper):
                 url = event_url,
                 location = event_location,
                 event_type = event_type,
-                descrption_long = event_details
+                description_long = event_details
             )]
 
         return events
