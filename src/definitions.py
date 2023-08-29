@@ -36,4 +36,4 @@ class InputWebsiteScraper(abc.ABC):
 
     @abc.abstractmethod
     def scrape_events(self, end_date: dt.datetime, start_date: dt.datetime = dt.datetime.now()) -> list[Event]:
-        ''' Every Sraper Class has to have a scrape_events method the returns a list of Event objects'''
+        ''' Every Sraper Class must have a scrape_events method that returns a list of Event objects'''
