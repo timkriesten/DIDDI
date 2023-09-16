@@ -8,8 +8,8 @@ import re
 #scraper
 class HTWScraper(InputWebsiteScraper):
     name: str = "HTW"
-    #url: str = "https://www.htw-dresden.de/hochschule/aktuelles/veranstaltungskalender"
-    url: str = "diddi/diverses/HTW_scraper/Veranstaltungskalender HTW Dresden.htm"
+    url: str = "https://www.htw-dresden.de/hochschule/aktuelles/veranstaltungskalender"
+    urlDev: str = "diddi/diverses/HTW_scraper/Veranstaltungskalender HTW Dresden.htm"
     ready = False
 
     # to be continued
@@ -18,9 +18,16 @@ class HTWScraper(InputWebsiteScraper):
         print(self.name, 'Scraper started.')
         events: list[Event] = []
         # get website
-        response =  requests.get(self.url)
-        #website response to text (response.text) or content (response.content)  
-        soup = BeautifulSoup(response.text, "html.parser")
+        scrapy_content = ''
+        if self.ready:            
+            response =  requests.get(self.url)
+            #website response to text (response.text) or content (response.content)  
+            scrapy_content = response.text
+        else:
+            with open(self.urlDev, 'r', encoding='utf-8') as file:
+                webpage_content = file.read()
+            scrapy_content = webpage_content
+        soup = BeautifulSoup(scrapy_content, "html.parser")
 
         # "skd-calendar-events-target" contains all events of a day 
 
