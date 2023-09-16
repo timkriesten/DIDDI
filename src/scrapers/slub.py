@@ -6,11 +6,12 @@ import locale   #to handle timezones and dates
 import re
 
 
-class SLUBScraper(InputWebsiteScraper):
-    name: str = "SLUB"
-    url: str = "https://www.slub-dresden.de/besuchen/veranstaltungen"
+class SLUB(InputWebsiteScraper):
+    name = "SLUB"
+    url = "https://www.slub-dresden.de/besuchen/veranstaltungen"
+    ready = True
 
-    def scrape_events(self, start_date: dt.datetime, end_date: dt.datetime) -> list[Event]:
+    def scrape_events(self, end_date: dt.datetime, start_date: dt.datetime = dt.datetime.now()) -> list[Event]:
         print(self.name, 'Scraper started.')
         events: list[Event] = []
         # get website
@@ -55,6 +56,6 @@ class SLUBScraper(InputWebsiteScraper):
                             url = self.url, #TODO change to event url not calender url
                             location = event_location,
                             event_type = event_type,
-                            descrption_long = event_details
+                            description_long = event_details
                         )]
         return events

@@ -4,9 +4,10 @@ import requests
 import datetime as dt
 import re
 
-class JapanischesPalaisScraper(InputWebsiteScraper):
-    name: str = 'JapanischesPalais'
-    url: str = 'https://japanisches-palais.skd.museum/programm/'
+class JapanischesPalais(InputWebsiteScraper):
+    name = 'JapanischesPalais'
+    url = 'https://japanisches-palais.skd.museum/programm/'
+    ready = True
 
     def scrape_events(self, end_date: dt.datetime, start_date: dt.datetime = dt.datetime.now()) -> list[Event]:
         print(self.name, 'Scraper started.')
@@ -59,7 +60,7 @@ class JapanischesPalaisScraper(InputWebsiteScraper):
                         url = self.url,
                         location = event_location,
                         event_type = event_type,
-                        descrption_long = event_details
+                        description_long = event_details
                     )]
 
         return events
