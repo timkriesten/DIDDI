@@ -5,10 +5,11 @@ import datetime as dt
 import locale   #to handle timezones and dates
 import re
 
-
+#scraper
 class HTWScraper(InputWebsiteScraper):
     name: str = "HTW"
-    url: str = "https://www.htw-dresden.de/hochschule/aktuelles/veranstaltungskalender"
+    #url: str = "https://www.htw-dresden.de/hochschule/aktuelles/veranstaltungskalender"
+    url: str = "diddi/diverses/HTW_scraper/Veranstaltungskalender HTW Dresden.htm"
 
     # to be continued
 
@@ -21,7 +22,19 @@ class HTWScraper(InputWebsiteScraper):
         soup = BeautifulSoup(response.text, "html.parser")
 
         # "skd-calendar-events-target" contains all events of a day 
-        elements = soup.findAll("div", {"class": r"event-container"})
+
+
+        # +++++++++++++++++++++++++++++
+        # structure of HTW webpage
+        # +++++++++++++++++++++++++++++
+        # list of all events on the webpage:
+        # htw_events-results__items htw_--loaded
+
+        # individual event
+        # htw_events-results__item
+        # +++++++++++++++++++++++++++++
+
+        elements = soup.findAll("div", {"class": r"htw_events-results__item"})
 
         #In each element (contains all events on a specific day) search for events
         #set timezone
@@ -60,3 +73,6 @@ class HTWScraper(InputWebsiteScraper):
                             descrption_long = event_details
                         )]
         return events
+    
+new_htw_scraper = HTWScraper()
+new_htw_scraper.scrape_events(start_date=dt.datetime(2023,9,16), end_date=dt.datetime(2023,9,30))
