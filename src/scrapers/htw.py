@@ -10,6 +10,7 @@ class HTWScraper(InputWebsiteScraper):
     name: str = "HTW"
     #url: str = "https://www.htw-dresden.de/hochschule/aktuelles/veranstaltungskalender"
     url: str = "diddi/diverses/HTW_scraper/Veranstaltungskalender HTW Dresden.htm"
+    ready = False
 
     # to be continued
 
@@ -79,13 +80,3 @@ new_htw_scraper.scrape_events(start_date=dt.datetime(2023,9,16), end_date=dt.dat
 import datetime as dt
 from src.definitions import InputWebsiteScraper, Event
 
-
-class HTW(InputWebsiteScraper):
-    name = 'HTW Dresden'
-    url = 'https://www.htw-dresden.de/hochschule/aktuelles/veranstaltungskalender'
-    ready = False
-
-    def scrape_events(self, end_date: dt.datetime, start_date: dt.datetime = dt.datetime.now()) -> list[Event]:
-        # TODO: write scraping script
-        events: list[Event] = []
-        return events
