@@ -4,3 +4,4 @@ mypy.ini
 .vscode
 __pycache__/
 Playground.ipynb
+test.py
