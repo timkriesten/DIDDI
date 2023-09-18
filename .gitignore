@@ -3,4 +3,5 @@ mypy.ini
 .ipynb_checkpoints
 .vscode
 __pycache__/
+.*_cache
 Playground.ipynb
