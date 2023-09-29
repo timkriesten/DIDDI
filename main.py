@@ -21,7 +21,7 @@ from ipywidgets import HBox, VBox, Button, Dropdown, FloatText, BoundedFloatText
 from ipyaggrid import Grid
 import webbrowser
 import pandas as pd
-from src import ScraperCollection, events_list2df
+from src import ScraperCollection, events_list2df, Event
 from datetime import datetime, timedelta
 
 # %%
@@ -55,60 +55,49 @@ date_and_scrapers = VBox([
 # %%
 # generate grid_draft widget
 
-column_defs = [{'headerName':'Start','field':'start_date', 'cellDataType': 'dateString', 'editable': True},
-               {'headerName':'Typ','field':'event_type', 'editable': True},
-               {'headerName':'Titel','field':'title', 'editable': True},
+column_defs = [{'headerName':'Start','field':'start_date', 'cellDataType': 'dateString', 'checkboxSelection': True},
+               {'headerName':'Typ','field':'event_type'},
+               {'headerName':'Titel','field':'title'},
                {'headerName':'URL','field':'url'},
-               {'headerName':'Organisation','field':'organiser', 'editable': True},
-               {'headerName':'Ort','field':'location', 'editable': True},
-               {'headerName':'regelmäßig','field':'periodic', 'editable': True, 'cellDataType': 'boolean'},
+               {'headerName':'Organisation','field':'organiser'},
+               {'headerName':'Ort','field':'location'},
+               {'headerName':'regelmäßig','field':'periodic', 'cellDataType': 'boolean'},
               ]
 
 grid_options = {
     'columnDefs' : column_defs,
-    'enableSorting': True,
-    'enableColResize': True,
-    'enableFilter': True,
-    'enableRangeSelection': True,
     'rowSelection': 'multiple',
+    'suppressRowClickSelection': True,
+    'defaultColDef': {
+        'sortable': True,
+        'editable': True,
+        'resizable': True,
+    # 'enableColResize': True,
+    # 'enableFilter': True,
+    # 'enableRangeSelection': True,
+    }
 }
 
 grid_draft = Grid(grid_data=events_list2df([]),
          grid_options=grid_options,
-         theme='ag-theme-balham',
+         theme='ag-theme-balham-dark',
+         export_mode="auto",
          quick_filter=True,
          sync_on_edit=True,
-         columns_fit='auto',
-         index=False,
-         keep_multiindex=False,)
+         sync_grid=True,
+         columns_fit='size_to_fit',
+         # show_toggle_delete=True,
+)
 
 # grid_draft
 
 # %%
-button_add_final = Button(description='add selection to final', layout = button_layout)
+# generate grid_draft buttons
 
-# %%
-# generate grid_final widget
-
-grid_options = {
-    'columnDefs' : column_defs,
-    'enableSorting': True,
-    'enableColResize': True,
-    'enableFilter': True,
-    'enableRangeSelection': True,
-    'rowSelection': 'multiple',
-}
-
-grid_final = Grid(grid_data=events_list2df([]),
-         grid_options=grid_options,
-         theme='ag-theme-balham',
-         quick_filter=True,
-         sync_on_edit=True,
-         columns_fit='auto',
-         index=False,
-         keep_multiindex=False,)
-
-# grid_final
+delete_rows_button = Button(description='delete selected', layout = button_layout)
+add_row_button = Button(description='add event', layout = button_layout)
+empty_button = Button(description='empty grid', layout = button_layout)
+grid_buttons = HBox([delete_rows_button, add_row_button, empty_button])
 
 # %%
 # display the app
@@ -116,8 +105,7 @@ grid_final = Grid(grid_data=events_list2df([]),
 app = VBox([
     date_and_scrapers,
     grid_draft,
-    button_add_final,
-    grid_final
+    grid_buttons
     ])
 
 app
@@ -138,6 +126,7 @@ def add_scraped_events_to_grid_draft(scraper):
         button.button_style = 'info'
         events = scraper.scrape_events(end_datetime, start_datetime)
         events_df = events_list2df(events)
+        grid_draft.get_grid()
         df_old = grid_draft.grid_data_out['grid']
         df_new = pd.concat([df_old, events_df], ignore_index=True)
         grid_draft.update_grid_data(df_new)
@@ -154,3 +143,27 @@ for i, widget_row in enumerate(scraper_widget_rows):
     url_button.on_click(change_color)
     scraper_button.on_click(change_color)
     scraper_button.on_click(add_scraped_events_to_grid_draft(ScraperCollection.scrapers[i]))
+
+def add_row(button):
+    grid_draft.get_grid()
+    df_old = grid_draft.grid_data_out['grid']
+    start_datetime = datetime.combine(date_widgets['start'].value, datetime.min.time())
+    df_new = pd.concat([df_old, events_list2df([Event(title = "TITEL", start_date = start_datetime, url = "www.gib_mir_einen_link.de")])], ignore_index=True)
+    grid_draft.update_grid_data(df_new)
+
+add_row_button.on_click(add_row)
+
+def delete_rows(button):
+    grid_draft.delete_selected_rows()
+
+delete_rows_button.on_click(delete_rows)
+
+
+def empty_grid(button):
+    grid_draft.update_grid_data(events_list2df([]))
+
+empty_button.on_click(empty_grid)
+
+# %%
+
+# %%
