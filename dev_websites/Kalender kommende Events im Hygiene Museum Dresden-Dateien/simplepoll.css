@@ -1,0 +1,107 @@
+/*------------------------------------------------------------------------------------------------------*/
+/* main */
+.simplePollWrap {
+    width: 300px;
+    position: relative;
+    padding: 10px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+}
+#simplePollVote {
+    font-weight: 700;
+    float: left;
+}
+.simplePollWrap .simplePollMain ul {
+    list-style-type: none;
+    padding-left: 30px; 
+    border-bottom: 1px solid #BBB;   
+    margin-left:0;
+}
+.simplePollWrap .simplePollMain ul:after {
+    clear: both;
+}
+.simplePollWrap .simplePollMain ul li {
+    text-indent: -30px;
+}
+.simplePollRow {
+    margin-bottom: 10px;
+}
+.simplePollRadioText {
+    margin-left: 5px;  
+    position: relative;
+    top: -2px;
+}
+.simplePollImage img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #BBB; 
+}
+.simplePollWrap h3 {
+    font-size: 14px;
+    padding-bottom: 10px;
+    margin-bottom: 0px;
+    border-bottom: 1px solid #BBB;
+}
+/*------------------------------------------------------------------------------------------------------*/
+/* see votes link and page */
+#simplePollSeeVotes {
+    color: #000;
+    text-decoration: none;
+    padding: 1px 6px;
+    margin: 2px;
+    float: right;
+}
+.simplePollSeeVotes ul {
+    list-style-type: none;
+    padding-left: 5px; 
+    margin-left: 0;
+}
+.simplePollSeeVotes ul li {
+    text-indent: 0;
+    margin-left: 0;
+    padding-left: 0;
+}
+.simplePollSeeVotes .simplePollAnswer {
+    margin-bottom: 2px;
+}
+/*------------------------------------------------------------------------------------------------------*/
+/* percent bars */
+.simplePollSeeVotes .simplePollPercentText {
+    margin-top: 3px;
+    color: #555;
+}
+.simplePollPercentBarLimiter {
+    width: 75%;
+    height: 0px;
+}
+.simplePollPercentBarColor-1 {
+    /*background-color: red;*/
+}
+/*limit the overall length of the bars, so we can still fit the percent number behind it*/
+.simplePollPercentBar {
+    border: 1px solid #888;
+    height: 14px;
+    margin-top: 2px;
+    margin-right: 5px;
+    float: left;
+    background-color: #BBB;
+    border-radius: 2px;
+    background-image: -webkit-linear-gradient(#EEE 0%, #BBB 100%); 
+    background-image: -moz-linear-gradient(#EEE 0%, #BBB 100%); 
+    background-image: -o-linear-gradient(#EEE 0%, #BBB 100%); 
+    background-image: linear-gradient(#EEE 0%, #BBB 100%);
+}
+
+/*------------------------------------------------------------------------------------------------------*/
+/* general */
+.clearfix:after {
+    content: "";
+    clear: both;
+    display: block;
+    visibility: hidden;
+    height: 0px;
+}
