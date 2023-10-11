@@ -25,10 +25,9 @@
    ```
 
 ## Notes regarding the repository structure
-Create the website scraper classes in src/scrapers/. They all must have a name and url attribute as defined in their superclass InputWebsiteScraper. Also, they all must have a function scrape_events which returns a list of events. The events type is defined in the Event class.
+Create the website scraper classes in src/scrapers/. They all must have a ```name``` and ```url``` attribute as defined in their
+superclass ```InputWebsiteScraper```. When the scraper is ready to use, set the ```ready``` class variable to True.
+Also, the scraper classes must all have a method ```scrape_events``` which returns a list of events. Have a look at the [_scraper_template.py](/src/scrapers/_scraper_template.py) for an example.
+The events type is defined in the ```Event``` class.
 
-In the end, we only import the scraper_collection in the main Jupyter Notebook. The scraper collection has access to all scrapers and we can define further methods for the scraper collection to play around with them (to be defined later..).
-
-
-Link Test
-[How To](/docs/HowTo.md)
+In the end, we only import the ```scrapers_list```, which is a list of all scraper classes in the main Jupyter Notebook.
