@@ -13,7 +13,7 @@
 # ---
 
 # %% [markdown]
-# #### Input Scraping Project Test now again and again.. and another time
+# #### Input Scraping Project
 
 # %%
 import ipywidgets as widgets
@@ -163,7 +163,3 @@ def empty_grid(button):
     grid_draft.update_grid_data(events_list2df([]))
 
 empty_button.on_click(empty_grid)
-
-# %%
-
-# %%
