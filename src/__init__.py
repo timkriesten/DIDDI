@@ -1,1 +1,1 @@
-from src.scraper_collection import ScraperCollection, events_list2df, Event
+from src.scraper_collection import scrapers_list, events_list2df, Event

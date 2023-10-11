@@ -18,7 +18,7 @@ class StuRa(InputWebsiteScraper):
     urldev = r'dev_websites/Terminübersicht StuRa TU Dresden.htm'
     ready = True
 
-    def scrape_events(self,end_date: dt.datetime, start_date: dt.datetime = dt.datetime.now()) -> list[Event]:
+    def scrape_events(self, start_date: dt.datetime, end_date: dt.datetime)-> list[Event]:
         print(self.name, 'Scraper started. \n +++This scraper checks only the calender noblog entries+++')
         events: list[Event] = []
         # distinguish between developer and ready mode
@@ -37,8 +37,8 @@ class StuRa(InputWebsiteScraper):
         for container in date_container:
             # Date
             event_date = dt.datetime.strptime(container.find('span',{'class': 'date-display-single'}).text, '%A, %d. %B %Y') 
-            # Go to next date if current date lays in past
-            if(event_date<dt.datetime.now()):continue
+            # Go to next date if start_date lays in past
+            if(event_date<start_date):continue
 
             # Stop searching when enddate is reached
             if(event_date>end_date):break

@@ -18,19 +18,20 @@ scrapers_list: list[InputWebsiteScraper] = [
         scrapers.Verbraucherzentrale()
     ]
 
-class ScraperCollection():
-    scrapers = scrapers_list
-    names = [scraper.name for scraper in scrapers]
-    urls = [scraper.url for scraper in scrapers]
-    ready = [scraper.ready for scraper in scrapers]
+# # old idea to create a ScraperCollection class. So far, I think the simple list of scraper classes should be enough.
+# class ScraperCollection():
+#     scrapers = scrapers_list
+#     names = [scraper.name for scraper in scrapers]
+#     urls = [scraper.url for scraper in scrapers]
+#     ready = [scraper.ready for scraper in scrapers]
     
-    @classmethod
-    def get_all_events_df(cls, end_date: dt.datetime, start_date: dt.datetime = dt.datetime.now(),**kwargs) -> pd.DataFrame:
-        events: list[Event] = []
-        for scraper in cls.scrapers:
-            events += scraper.scrape_events(end_date=end_date,start_date=start_date)
-        events_df = events_list2df(events)
-        return events_df
+#     @classmethod
+#     def get_all_events_df(cls, end_date: dt.datetime, start_date: dt.datetime = dt.datetime.now(),**kwargs) -> pd.DataFrame:
+#         events: list[Event] = []
+#         for scraper in cls.scrapers:
+#             events += scraper.scrape_events(end_date=end_date,start_date=start_date)
+#         events_df = events_list2df(events)
+#         return events_df
     
 def events_list2df(events: list[Event]) -> pd.DataFrame:
     '''

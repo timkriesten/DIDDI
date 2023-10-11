@@ -11,7 +11,7 @@ class SLUB(InputWebsiteScraper):
     url = "https://www.slub-dresden.de/besuchen/veranstaltungen"
     ready = True
 
-    def scrape_events(self, end_date: dt.datetime, start_date: dt.datetime = dt.datetime.now()) -> list[Event]:
+    def scrape_events(self, start_date: dt.datetime, end_date: dt.datetime) -> list[Event]:
         print(self.name, 'Scraper started.')
         events: list[Event] = []
         # get website
@@ -30,6 +30,8 @@ class SLUB(InputWebsiteScraper):
             my = dt.datetime.strptime(el.find('span',{'class': 'month-year'}).text,'%B, %Y')
             current_date = dt.datetime(my.year,my.month,int(el.find('span',{'class': 'day-number'}).text))
             event_time = el.find('div', {'class': 'metadata'}).text.split()[1]
+            # Go to next date if start_date lays in past
+            if(current_date<start_date):continue
             #stop searching when enddate is reached
             if(current_date>end_date):break
             #titel

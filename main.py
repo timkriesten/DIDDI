@@ -21,7 +21,7 @@ from ipywidgets import HBox, VBox, Button, Dropdown, FloatText, BoundedFloatText
 from ipyaggrid import Grid
 import webbrowser
 import pandas as pd
-from src import ScraperCollection, events_list2df, Event
+from src import scrapers_list, events_list2df, Event
 from datetime import datetime, timedelta
 
 # %%
@@ -43,7 +43,7 @@ scraper_widget_rows = [{
     'label': Label(scraper.name, layout = label_layout),
     'start_scraper': Button(description='get events', layout = button_layout, disabled = not scraper.ready),
     'open_url': Button(description='open url', layout = button_layout)
-} for scraper in ScraperCollection.scrapers]
+} for scraper in scrapers_list]
 
 date_and_scrapers = VBox([
     HBox(list(date_widgets.values())),
@@ -124,7 +124,7 @@ def add_scraped_events_to_grid_draft(scraper):
         start_datetime = datetime.combine(date_widgets['start'].value, datetime.min.time())
         end_datetime = datetime.combine(date_widgets['end'].value, datetime.min.time())
         button.button_style = 'info'
-        events = scraper.scrape_events(end_datetime, start_datetime)
+        events = scraper.scrape_events(start_datetime, end_datetime)
         events_df = events_list2df(events)
         grid_draft.get_grid()
         df_old = grid_draft.grid_data_out['grid']
@@ -139,10 +139,10 @@ def change_color(button):
 for i, widget_row in enumerate(scraper_widget_rows):
     url_button = widget_row['open_url']
     scraper_button = widget_row['start_scraper']
-    url_button.on_click(open_url_func(ScraperCollection.scrapers[i].url))
+    url_button.on_click(open_url_func(scrapers_list[i].url))
     url_button.on_click(change_color)
     scraper_button.on_click(change_color)
-    scraper_button.on_click(add_scraped_events_to_grid_draft(ScraperCollection.scrapers[i]))
+    scraper_button.on_click(add_scraped_events_to_grid_draft(scrapers_list[i]))
 
 def add_row(button):
     grid_draft.get_grid()

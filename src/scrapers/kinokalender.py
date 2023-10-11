@@ -6,7 +6,7 @@ class Kinokalender(InputWebsiteScraper):
     url = 'http://kinokalender.com/wochenprogramm.html'
     ready = False
 
-    def scrape_events(self, end_date: dt.datetime, start_date: dt.datetime = dt.datetime.now()) -> list[Event]:
+    def scrape_events(self, start_date: dt.datetime, end_date: dt.datetime)-> list[Event]:
         # TODO: write scraping script
         events : list[Event] = []
         return events
