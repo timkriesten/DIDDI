@@ -1,0 +1,165 @@
+@charset "utf-8";
+
+/*
+Author:		Rico Floß, floss@51nullacht.de
+Author URI: http://www.51nullacht.de/
+Date:		2014-08
+Client:		MKZ
+*/
+
+.hide-desktop {display:none;}
+
+/* 
+	=========================================== DESKTOP < 1200px ====
+*/
+@media only screen and (max-width: 1200px) {
+
+}
+
+/* 
+	============================================= TABLET LANDSCAPE ====
+*/
+@media only screen and (max-width: 1024px) {
+
+.container {
+	padding-left: 2%;
+	padding-right: 2%;
+}
+
+.project-slider .bx-wrapper .bx-controls-direction a.bx-prev { left: 0; }
+.project-slider .bx-wrapper .bx-controls-direction a.bx-next { right: 0; }
+
+.hide-desktop {display:block;}
+
+}
+
+@media handheld, only screen and (max-width: 900px) {
+	
+	.type-medium { width: 48%; }
+	
+	.page-header a.logo span {
+		height: 70%;
+	}
+}
+
+/* 
+	============================================== TABLET PORTRAIT ====
+*/
+@media handheld, only screen and (max-width: 768px) {
+
+	.page-navigation.fixed {
+		min-height: 3.5rem;
+	}
+	.page-header a.logo span {
+		height: 60%;
+	}
+
+	.page-header {
+		padding-top: 1em;
+	}
+
+	.header-line-container {
+		position: relative; left: auto; top: auto;
+	}
+	.header-line-container .column {
+		float: left; margin-left: 0
+	}
+	.header-line-container form input {
+		display: block; clear: both; margin: 0.25em 0;
+	}
+
+	.page-header .searchform {
+		position: relative; top: auto; right: auto; margin: 4em 0 0 0;
+		width: 260px;
+		text-align: right;
+	}
+	.page-header .searchform .searchword {
+		display: inline; width: auto; float: none;
+	}
+
+	.page-navigation {
+		z-index: 99; top: 1em; padding: 0.5em;
+		
+		background-color: #F1F1F1;
+	}
+	.page-navigation .navigation ul {
+		margin: 0; width: 100%;
+		-webkit-border-top-left-radius: 0; -moz-border-radius-topleft: 0; border-top-left-radius: 0;
+		-webkit-border-top-right-radius: 0; -moz-border-radius-topright: 0; border-top-right-radius: 0;
+	}
+	.page-navigation .navigation li[class*='current'] ul { float: none; }
+
+	.sub-navigation {
+		float: left;
+		width: 50%; 
+		margin-top: 1em !important;
+	}
+	.sub-navigation li {
+		display: block; width: 100%; padding: 0.5em 0;
+	}
+	
+	.category-list li {
+		padding: 1em 0.5em;
+		font-size: 100%;
+	}
+	.category-list li a {
+		font-size: 100%;
+	}
+	.category-list li a .mkz-icon { 
+		font-size: 300%;
+	}
+
+}
+
+@media handheld, only screen and (max-width: 600px) {
+
+	.category-list li { width: 31.5%; padding: 0.5em; }
+	.category-list li:nth-child(5n) { margin-right: 2%; }
+	.category-list li:nth-child(3n) { margin-right: 0; }
+	
+	.type-medium { width: 100%; }
+	
+	table th,
+	table td { display: table-cell !important; }
+	
+}
+
+/* 
+	=========================================== SMARTPHONE LANDSCAPE ====
+*/
+@media handheld, only screen and (max-width: 480px) {
+
+	.category-list li {
+		padding: 0.5em 0.25em;
+	}
+	.category-list li a {
+		text-transform: none;
+	}
+	.category-list li a .mkz-icon { 
+		font-size: 200%;
+	}
+
+	.post-type-archive-medium .filter ul.icon-ul {
+		margin-bottom: 0;
+	}
+	
+	.page-header { margin-bottom: 1em; }
+	
+	.page-header .searchform { margin-top: 1rem; width: 100%; }
+
+}
+
+@media handheld, only screen and (max-width: 400px) {
+
+	.category-list li { width: 47.5%; padding: 0.5em; }
+	.category-list li:nth-child(3n) { margin-right: 2%; }
+	.category-list li:nth-child(2n) { margin-right: 0; }
+	
+}
+
+/* 
+	============================================ SMARTPHONE PORTRAIT ====
+*/
+@media handheld, only screen and (max-width: 320px) {
+
+}

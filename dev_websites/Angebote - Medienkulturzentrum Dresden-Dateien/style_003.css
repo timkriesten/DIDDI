@@ -1,0 +1,724 @@
+@charset "utf-8";
+
+/*
+Theme Name: Medienkulturzentrum
+Author:		Rico Floß, floss@51nullacht.de
+Author URI: http://www.51nullacht.de/
+Date:		2014-08
+Client:		MKZ
+*/
+
+/*
+========= corporate
+red				c31924
+light red		d88f89
+dark grey		404040
+light grey		b9b9b9
+
+========= indi
+lighter grey	F1F1F1
+*/
+
+/* ========= font override */
+body {
+	/* font: normal 87.5%/120% 'Calibri', 'Open Sans', Arial, Verdana, sans-serif; */
+	font: normal 93.75%/130% 'Calibri', 'Open Sans', Arial, Verdana, sans-serif;
+	color: #404040;
+}
+
+a, a strong, stong a {
+	color: #e30010;
+}
+a {text-decoration: underline;}
+a:hover {text-decoration: none;}
+/* a:focus {outline: thin dotted black} */
+
+hr {
+	border-top-color: #96b1bf;
+}
+p iframe {
+	margin-bottom: 0;
+}
+
+address {
+	margin: 1rem 0;
+}
+
+/* ========= grid and structur */
+body {text-align: center;}
+
+/* .column {background-color: #dfdfdf;} */
+
+.container {
+	width: 950px;
+
+	text-align: left;
+}
+
+.page-header {
+	padding-top: 5em; /* space for header-line-container */
+	margin-bottom: 4em; /* space for sub-navigation */
+	position: relative;
+}
+	.page-navigation {
+		position: absolute; right: 0; top: 11.5em;
+	}
+	.page-navigation.fixed {
+		position: fixed; top: 0; width: 100%; z-index:9999999; padding-top: 0.5em;
+		min-height: 5.5em;
+
+		background: #fff;
+		-webkit-box-shadow:2px 2px 6px rgba(0,0,0,0.6);-moz-box-shadow:2px 2px 6px rgba(0,0,0,0.6);box-shadow:2px 2px 6px rgba(0,0,0,0.6);
+	}
+	/*.page-navigation.fixed .navigation {
+		width: 950px; max-width: 100%; margin: 0 auto;
+	}*/
+
+	.page-navigation.fixed .navigation {
+		display: inline-block;
+	}
+
+.page-document {
+	/* margin-top: 2em; */
+	padding: 1em;
+}
+	.page-content {
+	}
+		.content-header {
+		}
+		.content-footer {
+		}
+	.page-sidebar {
+	}
+.page-footer-container {
+	padding: 1em 0;
+}
+	.page-footer {
+	}
+.header-line-container {
+	position: absolute; left: 0; top: 0; width: 100%;
+	padding: 0.75em 0;
+}
+
+.page-footer .column,.header-line-container .column {	margin-top: 0; margin-bottom: 0;} /* .columns without margin (p, ul) */
+
+/* ========= forms */
+a.button,
+input.button,
+button {
+	background-color: #2f2483;
+	color: #fff;
+	text-decoration: none;
+	border: none;
+}
+a.button.small, input.button.small, button.small {padding: 0.5em;}
+
+/* seminar buchung */
+form.buchung .column .column {
+	margin-bottom: 0;
+}
+
+/* wpcf7 */
+.page-content form .wpcf7-form-control-wrap {
+	display: block;
+	margin: 0.5em 0;
+}
+.page-content form .wpcf7-list-item {
+	display: block;
+	padding-top: 0.5em;
+	padding-right: 0.5em;
+}
+.page-content form input.wpcf7-not-valid,
+.page-content form textarea.wpcf7-not-valid {
+	border-color: #ff0000;
+}
+.page-content form .wpcf7-not-valid-tip { color: #ff0000; display: none; } /* disable alert tip beside input */
+.page-content form .wpcf7-response-output {
+	clear: both; padding: 0.5em; width: 100%;
+	/* display: none !important; */ /* disable info under form */
+}
+/* .page-content .screen-reader-response, */
+.notice.error {background-color: #FFF3F4;}
+.page-content .screen-reader-response {}
+.page-content form .wpcf7-response-output.wpcf7-mail-sent-ng,
+.page-content form .wpcf7-response-output.wpcf7-validation-errors { display: block; border: 1px solid red; background-color: #FFF3F4; color: red; }
+.page-content form .wpcf7-response-output.wpcf7-mail-sent-ok { /* border: 1px solid #00ff00; */ color: #00ff00; }
+.page-content .screen-reader-response ul { /* display: none; */ } /* disable anker */
+
+.tnp-subscription-minimal input.tnp-email {
+	background-color: #ffffff !important;
+}
+
+/* ========= table */
+table {
+	border-bottom-color: #b1b2b3;
+}
+table caption {
+	caption-side: bottom;
+	margin: 1em 0 2em 0;
+}
+table tr td:first-child {
+	font-weight: 700;
+}
+
+/* ========= header */
+/* logo */
+.page-header a.logo {
+	float: left; position: relative; display: block; width: 230px; max-width: 100%; height: 130px; overflow: hidden;
+
+	text-indent: -9000px;
+	white-space: nowrap;
+}
+.page-header a.logo span {
+	position: absolute; left: 0; top: 0;
+	width: 100%; height: 100%;
+
+	background: transparent url(https://www.medienkulturzentrum.de/files/2021/03/Logo_MKZ_web.png) left top no-repeat;
+	background-size: contain;
+}
+
+/* search */
+.page-header .searchform {
+	position: absolute; right: 0; top: 70px;
+}
+.page-header .searchform .searchword {
+	padding-top: 0.75em;
+	padding-bottom: 0.75em;
+}
+.page-header .searchform button {
+	padding-top: 0.9em;
+	padding-bottom: 0.9em;
+}
+
+/* header-line (in footer) */
+.header-line-container {
+	background-color: #575656;
+}
+
+.page-footer .social li a,
+.header-line-container .social li a {
+	padding: 0.25em; margin-left: 0.5em;
+	display: block; float: left;
+
+	color: #575656;
+	font-size: 93.33%;
+	text-align: center;
+	background-color: #fff;
+	-webkit-border-radius: 0.25em; -moz-border-radius: 0.25em; border-radius: 0.25em;
+}
+
+.header-line-container .social li a.donate-btn {
+	background-color: transparent;
+	padding: 0;
+}
+
+.header-line-container .social li a.donate-btn button {
+	height: 2rem;
+}
+
+.header-line-container .social li {
+	vertical-align: middle;
+}
+
+/* ========= navigation */
+.page-navigation .navigation li a {
+	padding: 0.25em 0.5em;
+	margin-left: 0.5em;
+
+	color: #575656;
+	text-decoration: none;
+	font-size: 18px;
+	font-weight: 700;
+}
+.single-medium .page-navigation .navigation li.page-item-15 > a,
+.post-type-archive-medium .page-navigation .navigation li.page-item-15 > a,
+.single-na5108seminar .page-navigation .navigation li.page-item-13 > a,
+.page-navigation .navigation li[class*='current'] > a,
+.page-navigation .navigation li > a:hover,
+.page-navigation .navigation li:hover > a {
+	margin-bottom: 0.5em;
+
+	background-color: #2f2483;
+	color: #fff;
+	-webkit-border-radius: 0.25em; -moz-border-radius: 0.25em; border-radius: 0.25em;
+}
+
+/* sub */
+.page-navigation .navigation .has-menu .icon { display: none; }
+/* .menu:hover ul { display: none !important; } */
+.menu li:hover > ul:not(.children),.menu li.hover > ul,
+.single-na5108seminar .page-navigation .navigation li.page-item-13 > ul { display: block !important; }
+.single-na5108seminar .page-navigation .navigation:hover li.page-item-13 > ul { display: none !important; }
+.single-na5108seminar .page-navigation .navigation li.page-item-13:hover > ul { display: block !important; }
+
+.page-navigation .navigation li[class*='current'] ul {
+	display: block;
+	float: right;
+}
+@media handheld, only screen and (min-width: 769px) {
+	.home .menu li:hover > ul,.menu li.hover > ul,.menu li:hover > ul{display:block;}
+	.page-navigation .navigation:hover ul { display: none !important; }
+	.page-navigation .navigation li:hover > ul { display: block !important; }
+}
+
+/* .page-navigation .navigation li[class*='current'] ul li { */
+.page-navigation .navigation li ul li {
+	display: inline-block;
+	width: auto;
+}
+/* .page-navigation .navigation li[class*='current'] ul li a { */
+.page-navigation .navigation li ul li a {
+	display: inline-block;
+
+	font-weight: 400;
+}
+
+/* add logo on fixed navi */
+.page-navigation .navilogo a,
+.page-navigation.fixed .navilogo {
+	display: none;
+}
+.page-navigation.fixed .navilogo a {
+	display: block;
+	width: 65px;
+	height: 57px;
+	background: transparent url(images/logo_medienkulturzentrum_small.png) center no-repeat;
+}
+
+.page-navigation.fixed .navilogo {
+	display: inline-block;
+}
+
+.page-navigation.fixed .navicontainer {
+	width: 950px;
+	max-width: 100%;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+/* ========= document */
+.page-document {
+	background-color: #F1F1F1;
+	-webkit-border-radius: 0.75em 0.75em 0 0; -moz-border-radius: 0.75em 0.75em 0 0; border-radius: 0.75em 0.75em 0 0;
+}
+
+/* ========= content */
+/* headlines */
+h1, h1 a, .likeh1,
+h2, h2 a, .likeh2,
+h3, h3 a, .likeh3,
+h4, h4 a, .likeh4,
+h5, h5 a, .likeh5,
+h6, h6 a, .likeh6 {
+	font-weight: 700;
+	text-decoration: none;
+	/* text-transform: uppercase; */
+}
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {}
+
+h1, .likeh1 {
+	color: #2f2483;
+}
+
+h2, .likeh2 {
+	margin-top: 1.5em;
+
+	color: #2f2483;
+	font-size: 146.66%;
+}
+.news-list  h2, .news-list  .likeh2,
+.seminar-list  h2, .seminar-list  .likeh2 {
+	margin-top: 0;
+}
+.seminar-list h2, .seminar-list .likeh2 {
+	margin-bottom: 0;
+}
+
+h3, .likeh3 {
+	font-size: 120%;
+}
+
+.page-content blockquote {
+	padding: 0; margin: 0;
+
+	font-size: 120%;
+}
+
+/* ========= news list */
+.news-list .hentry { margin-top: 1.5em; }
+
+/* pages */
+.wp-pagenavi {
+	padding-left: 33.5%;
+	margin: 1em 0;
+}
+.wp-pagenavi.seminar-pages {
+	padding-left: 35.5%;
+}
+.wp-pagenavi .pages {
+	display: none;
+}
+.wp-pagenavi span,
+.wp-pagenavi a {
+	display: inline-block; padding: 0.25em 0.5em; margin-right: 0.5em;
+
+	font-size: 106.66%;
+	text-decoration: none;
+	color: #fff;
+	background-color: #b1b2b3;
+	-webkit-border-radius: 0.25em; -moz-border-radius: 0.25em; border-radius: 0.25em;
+}
+.wp-pagenavi span.current,
+.wp-pagenavi a:hover {
+	background-color: #2f2483;
+}
+
+/* ========= seminar */
+.seminar-list .hentry { margin-top: 1.5em; }
+.single-na5108seminar .page-content .googlemap {
+	height: 300px;
+}
+
+/* ========= page-footer */
+.page-footer-container {
+	background-color: #575656;
+}
+.page-footer {
+	font-size: 106.66%;
+}
+.page-footer .copyright,
+.page-footer .social-container,
+.page-footer a {
+	color: #fff;
+}
+
+/* navigation */
+.page-footer .navigation li a, .page-footer .arrow-up {
+	padding-left: 0.5em;
+
+	text-decoration: none;
+	/* text-transform: uppercase; */
+}
+.page-footer .navigation li[class*='current'] > a,
+.page-footer .navigation li a:hover {
+	text-decoration: underline;
+}
+
+/* ========= page-sidebar */
+.page-sidebar {
+	position: relative;
+}
+.page-sidebar:before {
+	/* display: block; width: 1px; height: 94%;
+	position: absolute;	top: 1em; left: -1.5em;
+
+	content: ' ';
+	border-left: 1px solid #fff; */
+}
+
+/* box */
+.page-sidebar article {
+/* .page-sidebar article.widget_na5108dynamiccontent_widget .dynamic-content-element { */
+	padding: 0.5em 1em; margin-bottom: 2em;
+
+	font-size: 106.66%;
+	background-color: #fff;
+	-webkit-border-radius: 0.75em; -moz-border-radius: 0.75em; border-radius: 0.75em;
+}
+.page-sidebar article.widget_na5108dynamiccontent_widget { /* reset for the dynamiccontent_widget parent */
+	padding: 0; margin-bottom: 0;
+
+	font-size: 100%;
+	background: transparent;
+	-webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0;
+}
+
+/* seminar filter list */
+.page-sidebar .seminar-filter a {
+	text-decoration: none;
+}
+.page-sidebar .seminar-filter a i {
+	font-size: 1.15em;
+}
+
+/* tagcloud */
+.widget_tag_cloud h4 {
+	display: none;
+}
+.widget_tag_cloud .tagcloud {
+	text-align: center;
+}
+.widget_tag_cloud .tagcloud a {
+	text-decoration: none;
+	vertical-align: middle;
+	line-height: 100%;
+}
+
+/* ========= images */
+img {
+	-webkit-border-radius: 0.75em; -moz-border-radius: 0.75em; border-radius: 0.75em;
+}
+.gm-style img { max-width: none; }
+
+.alignleft {margin-top:0.25em;}
+
+/* zoom */
+.zoom {
+	/* display: block; */
+	position: relative;/*  display: inline-block;  */max-width: 100%;
+}
+.zoom .zoom-icon {
+	position: absolute; right: 0.25em; top: 0.25em;
+	width: 1.5em; height: 1.5em;
+
+	text-align: center;
+	line-height: 1.5em;
+	font-size: 1.5em;
+	color: #fff;
+	background: transparent url(images/trans_grey.png) center no-repeat;
+	-webkit-border-radius: 0.25em; -moz-border-radius: 0.25em; border-radius: 0.25em;
+}
+
+/* gallery */
+ul.gallery {
+	list-style: none;
+}
+
+/* ========= category-list */
+.category-list { list-style: none; margin: 0; padding: 0; }
+.page-sidebar .category-list { margin-bottom: 2rem; }
+.category-list li {
+	display: block; float: left; width: 18.4%;
+	margin: 0 2% 2% 0;
+	padding: 1em;
+
+	background-color: #b1b2b3;
+	-webkit-border-radius: 0.75em; -moz-border-radius: 0.75em; border-radius: 0.75em;
+}
+.page-sidebar .category-list li { width: 48%; }
+.category-list li.cat-projekte { background-color: #575656; }
+.category-list li:nth-child(5n) { margin-right: 0; }
+.page-sidebar .category-list li:nth-child(5n) { margin-right: 2%; }
+
+.category-list li a {
+	display: block; width: 100%;
+
+	color: #fff;
+	text-align: center;
+	text-decoration: none;
+	/* text-transform: uppercase; */
+	white-space: nowrap;
+	font-size: 146.66%;
+}
+.page-sidebar .category-list li a { font-size: 110%; }
+.category-list li a .mkz-icon { font-size: 500%; padding-bottom: 0.125em; }
+.page-sidebar .category-list li a .mkz-icon { font-size: 150%; }
+
+/* .category-list li.current a, */
+.category-list li a:hover { color: #2f2483; }
+
+/* ========= project-slider */
+.project-slider {
+	margin-bottom: 1em;
+}
+.project-slider .slider article {
+	padding: 0.75em 1em 1.25em 1em;
+	/* min-height: 500px; */
+	min-height: 450px;
+
+	background-color: #F1F1F1;
+	-webkit-border-radius: 0.75em; -moz-border-radius: 0.75em; border-radius: 0.75em;
+}
+.project-slider .slider article header {
+	min-height: 5rem
+}
+.project-slider .slider article header .icon {
+	display: block; margin-bottom: 0.25em;
+
+	font-size: 300%;
+	color: #2f2483;
+}
+.project-slider .slider article header .date {
+	font-size: 106.66%;
+	color: #000;
+}
+.project-slider .slider article .more-link {
+	display: block; width: 85%;
+	position: absolute; bottom: 1em;
+
+	text-align: center;
+}
+.project-slider .slider article p {
+	color: #000;
+}
+
+.project-slider .bx-wrapper .bx-controls-direction a.bx-prev {left: -1em;}
+.project-slider .bx-wrapper .bx-controls-direction a.bx-next {right: -1em;}
+
+/* ========= mediathek */
+/* filter */
+.post-type-archive-medium .filter {
+	margin-right: 1em;
+	float: left;
+}
+.post-type-archive-medium .filter ul.icon-ul {
+	float: left;
+	margin: 0 2em 2em 1.5em;
+}
+
+/* list */
+/* [data-columns]::before { content: '3 .column.col_3'; } */
+
+/* These are the classes that are going to be applied: */
+/* .column { float: left; } */
+/* .size-1of3 { width: 33.333%; } */
+
+
+.media-list {
+	display: -webkit-flex; display: -ms-flexbox; display: flex; flex-wrap: wrap; overflow: hidden;
+}
+
+/* entry */
+.type-medium {
+	margin-bottom: 0;
+}
+.type-medium .meta {
+	display: block;
+}
+.type-medium .meta a {
+	padding-right: 0.25rem;
+}
+.type-medium .thumbnail { position: relative; }
+.type-medium .thumbnail .length {
+	display: block;
+	position: absolute; top: 0; right: 0;
+	padding-left: 0.25em;
+
+	background-color: #F1F1F1;
+	/* font-size: 2em; */
+	-webkit-border-bottom-left-radius: 0.25em; -moz-border-radius-bottomleft: 0.25em; border-bottom-left-radius: 0.25em;
+}
+.type-medium .thumbnail .icon {
+	position: absolute; top: 1em; right: 0.5em;
+	padding: 0.25em;
+
+	background-color: #fff;
+	font-size: 2em;
+	-webkit-border-radius: 0.25em; -moz-border-radius: 0.25em; border-radius: 0.25em;
+}
+
+/* slider */
+.mediathek-slider li img {
+	margin: 0 auto;
+}
+
+/* single */
+.single-medium .meta a {
+	padding-left: 0.25em;
+}
+/* .single-medium .shariff { */
+	/* margin-bottom: 1em; */
+/* } */
+/* .single-medium .shariff li a .icon { */
+	/* padding-right: 0.5em; */
+/* } */
+/* .single-medium .shariff li.info a { */
+	/* text-align: center; */
+/* } */
+/* .single-medium .shariff li.info a .icon { */
+	/* padding-right: 0; */
+/* } */
+
+/* ========= fancybox */
+.fancybox-close, .fancybox-nav span {color: #575656;}
+.fancybox-opened .fancybox-skin {-webkit-box-shadow:0;-moz-box-shadow:0;box-shadow:none;}
+
+/* ========= globals */
+/* mkz-icon */
+.mkz-icon {
+	vertical-align: middle;
+	speak: none;
+	text-transform: none;
+	display: inline-block;
+	font: normal normal normal 14px/1 FontAwesome;
+	font-size: inherit;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.mkz-icon.mkz-icon-projekte,
+.mkz-icon.mkz-icon-animation,
+.mkz-icon.mkz-icon-film,
+.mkz-icon.mkz-icon-netzwelt {
+	font-family: mkzicons;
+}
+/* .mkz-icon-animation:before { content: '\f1fc'; } */
+.mkz-icon-animation:before { content: '\e908'; }
+.mkz-icon-audio:before { content: '\f025'; }
+.mkz-icon-computer:before { content: '\f109'; }
+.mkz-icon-computerspiele:before { content: '\f11b'; }
+/* .mkz-icon-film:before { content: '\f008'; } */
+.mkz-icon-film:before { content: '\e913'; }
+.mkz-icon-fotografie:before { content: '\f030'; }
+.mkz-icon-medienkunst:before { content: '\f1d8'; }
+.mkz-icon-mobile-medien:before { content: '\f10b'; }
+/* .mkz-icon-netzwelt:before { content: '\f0ac'; } */
+.mkz-icon-netzwelt:before { content: '\e9ca'; }
+/* .mkz-icon-projekte:before { content: '\f0ea'; } */
+.mkz-icon-projekte:before { content: '\e96f'; }
+.no-bottomSpace {padding-bottom: 0; margin-bottom: 0;}
+
+@media print{
+
+	body {
+		font-size: 80%;
+		color: #000;
+	}
+
+	.home .category-list,
+	.searchform,
+	.header-line-container,
+	.similar-seminar,
+	.zoom-icon,
+	.wp-pagenavi,
+	.page-navigation,
+	.shariff,
+	.wpcf7,
+	.page-footer .navigation,
+	.page-footer .navigation,
+	.page-sidebar .widget_tag_cloud {
+		display: none !important;
+	}
+
+	.page-footer .copyright,
+	.container {
+		width: 100%;
+	}
+
+	.page-header {
+		padding: 1em; margin: 0;
+	}
+	.page-header a.logo {
+		overflow: visible;
+		width: 50%;
+		height: auto;
+
+		text-indent: 0;
+		white-space: normal;
+	}
+
+	a {
+		text-decoration: underline;
+	}
+	a:link:after,
+	a:visited:after {
+		content: "";
+	}
+
+}
+
+
+.bx-loading {
+	display: none;
+}
