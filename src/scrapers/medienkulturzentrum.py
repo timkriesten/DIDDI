@@ -71,7 +71,7 @@ class Medienkulturzentrum(InputWebsiteScraper):
                     #try to extract year,date and starttime; format should look like this: 'Start: 09.01.2024, 17:00'
                     yeardatetime = dt.datetime.strptime(sub_info_container.find('div',{'class':'col_4c alpha no-bottomSpace'}).find('p').text.replace('\t','').split(' -')[0], 'Start: %d.%m.%Y, %H:%M')
                 except:
-                    messagebox.showinfo('>>> WARNING: No time found in ' + self.name + '-Scraper. Year and date information only. Hour is set to 0.<<')
+                    messagebox.showwarning('>>> WARNING <<<', 'No time found in ' + self.name + '-Scraper. Year and date information only. Hour is set to 0.')
                     yeardatetime = yeardate
 
                 # Organiser/organisation

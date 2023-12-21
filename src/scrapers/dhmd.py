@@ -37,7 +37,7 @@ class DHMD(InputWebsiteScraper):
             # year and date
             try: yeardate = dt.datetime.strptime(url.rsplit('/', 1)[-1], '%Y-%m-%d')
             except:
-                messagebox.showinfo('>>> WARNING: Years and dates in ' + self.name + '-Scraper may not be correct <<<')
+                messagebox.showwarning('>>> WARNING <<<', 'Years and dates in ' + self.name + '-Scraper may not be correct.')
                 break
             # date and time without year            
             time = dt.datetime.strptime(str(event.find('strong',{'class': 'date'}).text), '%a. %d. %b, %H:%M Uhr')
@@ -49,8 +49,7 @@ class DHMD(InputWebsiteScraper):
 
             # Stop searching when enddate is reached
             if(yeardate>search_end_date):break
-            print(yeardatetime)
-            print(search_end_date)   
+  
             #Eventtitle
             event_title = event.find('h3').text
 
