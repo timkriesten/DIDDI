@@ -31,3 +31,10 @@ Also, the scraper classes must all have a method ```scrape_events``` which retur
 The events type is defined in the ```Event``` class.
 
 In the end, we only import the ```scrapers_list```, which is a list of all scraper classes in the main Jupyter Notebook.
+
+## Notes for SCRAPER-DEVELOPMENT
+When creating new scrapers follow the scraper structure of stura. You can directly run the scraper script during devloping. If some modules are not found add the path of the src directory to your PYTHONPATH system variable.
+
+## Notes regarding SCRAPER-Functionality
+The scraper does not check for double occurence in the event lists. At some websites it can happen, that the scraper catched one event twice, if the event is listed twice on the website e.g. under a specific date and unter upcomming events
+Double scraping of events can also occur if different calendars contain the same event..
