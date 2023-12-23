@@ -1,3 +1,4 @@
+# checks only current month, scraper should be adapted to check following month (additional links needed)
 from bs4 import BeautifulSoup
 from src.definitions import InputWebsiteScraper, Event
 import requests
@@ -16,7 +17,7 @@ class StuRa(InputWebsiteScraper):
     urldev = r'dev_websites/Terminübersicht StuRa TU Dresden.htm'
     ready = True
 
-    def scrape_events(self, start_date: dt.datetime, end_date: dt.datetime)-> list[Event]:
+    def scrape_events(self, search_start_date: dt.datetime, search_end_date: dt.datetime)-> list[Event]:
         print(self.name, 'Scraper started. \n +++This scraper checks only the calender noblog entries+++')
         events: list[Event] = []
         # distinguish between developer and ready mode
@@ -36,10 +37,10 @@ class StuRa(InputWebsiteScraper):
             # Date
             event_date = dt.datetime.strptime(container.find('span',{'class': 'date-display-single'}).text, '%A, %d. %B %Y') 
             # Go to next date if start_date lays in past
-            if(event_date<start_date):continue
+            if(event_date<search_start_date):continue
 
             # Stop searching when enddate is reached
-            if(event_date>end_date):break
+            if(event_date>search_end_date):break
 
             #Find all events in container
             event = container.findAll('li')
@@ -60,26 +61,29 @@ class StuRa(InputWebsiteScraper):
                 #Location
                 event_location = ev.find('div',{'class': 'views-field-field-ort-value'}).find('span',{'class', 'field-content'}).text
 
-                
                 #Description
                 event_details = 'not searched'#ev.find('p').text if ev.find('p') else 'No description.'
 
                 #Add time to date
                 if(start_time != '(All day)'):
-                    start_datetime = event_date + dt.timedelta(hours=int(start_time.split(':')[0]))
-                    start_datetime = start_datetime + dt.timedelta(hours=int(start_time.split(':')[1]))
+                    event_datetime = event_date + dt.timedelta(hours=int(start_time.split(':')[0]))
+                    event_datetime = event_datetime + dt.timedelta(hours=int(start_time.split(':')[1]))
+                else: event_datetime = event_date
                 #end_datetime = event_date + dt.timedelta(hours=int(end_time.split(':')[0]))
                 #end_datetime = end_datetime + dt.timedelta(hours=int(end_time.split(':')[1]))
+                    
                 #Url
                 url = ev.find('a')['href']
                 events += [Event(
                     title = event_title,
-                    start_date = start_datetime,
+                    start_date = event_datetime,
                     url = self.url,
                     location = event_location,
                     event_type = event_type,
                     description_long = event_details,
                 )]
 
-
         return events
+
+devScraper = StuRa()
+devScraper.scrape_events(search_start_date = dt.datetime(2023,9,16), search_end_date = dt.datetime(2024,1,9))
