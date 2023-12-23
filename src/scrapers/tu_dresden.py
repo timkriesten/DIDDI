@@ -86,5 +86,5 @@ class TUDresden(InputWebsiteScraper):
         print(events)
         return events
 
-devScraper = TUDresden()
-devScraper.scrape_events(search_start_date = dt.datetime(2023,12,16), search_end_date = dt.datetime(2024,1,9))
+#devScraper = TUDresden()
+#devScraper.scrape_events(search_start_date = dt.datetime(2023,12,16), search_end_date = dt.datetime(2024,1,9))
