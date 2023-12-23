@@ -106,5 +106,5 @@ class Medienkulturzentrum(InputWebsiteScraper):
         
         return events
     
-devScraper = Medienkulturzentrum()
-devScraper.scrape_events(start_date = dt.datetime(2023,12,16), search_end_date = dt.datetime(2024,1,9))
+#devScraper = Medienkulturzentrum()
+#devScraper.scrape_events(start_date = dt.datetime(2023,12,16), search_end_date = dt.datetime(2024,1,9))

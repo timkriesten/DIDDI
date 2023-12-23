@@ -1,0 +1,11 @@
+
+/* - ++resource++tud.addons.ma_lscr_mb_er/unhide.css - */
+/* https://tu-dresden.de/portal_css/++resource++tud.addons.ma_lscr_mb_er/unhide.css?original=1 */
+.ms-m-text[data-a0]::before {
+content: attr(data-a0) attr(data-a1) attr(data-a2) attr(data-a3) attr(data-a4) attr(data-a5) "\0040"
+attr(data-b0) attr(data-b1) attr(data-b2) attr(data-b3) attr(data-b4) attr(data-b5)
+}
+.ms-nm-text[data-a0]::before {
+content: attr(data-a0) attr(data-a1) attr(data-a2) attr(data-a3) attr(data-a4) attr(data-a5)
+attr(data-b0) attr(data-b1) attr(data-b2) attr(data-b3) attr(data-b4) attr(data-b5)
+}

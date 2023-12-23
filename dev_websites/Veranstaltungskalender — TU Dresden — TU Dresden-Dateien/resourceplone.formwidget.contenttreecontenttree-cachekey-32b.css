@@ -1,0 +1,689 @@
+
+/* - ++resource++plone.formwidget.contenttree/contenttree.css - */
+/* https://tu-dresden.de/portal_css/++resource++plone.formwidget.contenttree/contenttree.css?original=1 */
+.contenttreeWidget {
+bottom: 3.5em;
+height: auto;
+left: 0px;
+overflow-y: auto;
+margin: 0em 1em;
+position: absolute;
+right: 0px;
+top: 6em;
+width: auto;
+border: 1px solid #8CACBB;
+}
+.contenttreeWidget li {
+display: block;
+padding-left: 1em;
+}
+.contenttreeWidget .navTreeCurrentItem {
+font-weight: bold;
+}
+.contenttreeWidget .navTreeCurrentItem li {
+font-weight: normal;
+}
+.contenttreeWidget li a {
+border-bottom: solid 1px transparent;
+}
+.contenttreeWidget .navTreeItem a {
+border: none;
+display: block;
+text-decoration: none;
+padding-top: 0.2em;
+padding-bottom: 0.25em;
+}
+.contenttreeWidget .navTreeItem a:hover {
+outline: 1px dotted #205C90;
+}
+.contenttreeWidget li.navTreeCurrentItem {
+border: none !important;
+background-color: transparent;
+}
+.contenttreeWidget li.navTreeCurrentItem > a,
+.contenttreeWidget li.navTreeCurrentItem > a:hover {
+border: none;
+outline: none;
+background-color: #205C90;
+color: #fff !important;
+}
+/* */
+* html .contentTreeWidget li.navTreeCurrentItem a,
+* html .contentTreeWidget li.navTreeCurrentItem a:hover {
+height: 1.6em;
+}
+.contenttreeWindow {
+display: none;
+position: fixed;
+_position: absolute;
+background-color: white;
+z-index: 100;
+}
+.contenttreeWindow h2 {
+display: block;
+top: 0px;
+margin: 0px;
+}
+.contenttreeWindowHeader {
+padding: 1em;
+}
+.contenttreeWindowActions {
+position: absolute;
+width: 100%;
+top: auto;
+bottom: 0px;
+padding: 1em;
+}
+.contenttreeWindowBlocker {
+z-index: 99;
+width: 100%;
+height: 100%;
+opacity: 0.4;
+background-color: black;
+top: 0px;
+left: 0px;
+position: fixed;
+_position: absolute;
+_top: expression(eval((document.body.scrollTop)?document.body.scrollTop:document.documentElement.scrollTop));
+}
+.option {
+display: block;
+}
+
+/* - ++resource++sl_stylesheets/social_like.css - */
+@media screen {
+/* https://tu-dresden.de/portal_css/++resource++sl_stylesheets/social_like.css?original=1 */
+#viewlet-social-like > div
+{
+float: left;margin-right: 2em;
+}
+#viewlet-social-like
+{
+min-height: 3em;
+margin-top: 5px;
+}
+#viewlet-social-like .twitter-count-horizontal
+{
+height: 20px !important;
+}
+#viewlet-social-like .fb_edge_widget_with_comment
+{
+position: relative;
+margin-top: 0;
+}
+.twitter-share-button
+{
+margin-top: .8px;
+}
+#viewlet-social-like.vertical
+{
+min-height: 7em !important;
+}
+#viewlet-social-like .whatsapp,
+#viewlet-social-like .telegram
+{
+font-size: 82%;
+display: inline-block;
+overflow: hidden;
+height: 20px;
+padding: 0 5px 0 24px;
+white-space: nowrap;
+color: #fff !important;
+border: 0 !important;
+border-radius: 3px;
+background-repeat: no-repeat;
+background-size: 16px;
+}
+#viewlet-social-like .whatsapp.link,
+#viewlet-social-like .telegram.link
+{
+width: 0;
+padding: 0 20px;
+text-indent: -200%;
+background-position: 45%;
+}
+#viewlet-social-like .whatsapp
+{
+display: none;
+background-color: #199e0e;
+background-image: url(++resource++sl_images/ico-whatsapp.svg);
+background-position: 2px 2px;
+}
+#viewlet-social-like .whatsapp:hover,
+#viewlet-social-like .telegram:hover
+{
+color: #fff !important;
+}
+#viewlet-social-like .whatsapp.active
+{
+display: inline-block;
+}
+#viewlet-social-like .telegram
+{
+background-color: #31a4d5;
+background-image: url(++resource++sl_images/ico-telegram.svg);
+}
+
+}
+
+
+/* XXX ERROR -- could not find 'disable_xmas.css'*/
+
+/* - ++resource++eea.faceted-navigation.css - */
+@media screen {
+/* https://tu-dresden.de/portal_css/++resource++eea.faceted-navigation.css?original=1 */
+/* */
+.faceted-noborder {
+background:transparent none repeat scroll 0 0;
+border: medium none;
+}
+.faceted-form {
+padding: 1em 0 0 0;
+margin: 0;
+width: auto;
+}
+.faceted-area.center-and-left-area {
+float: left;
+margin-right: -25em;
+width: 100%;
+}
+.faceted-area.right-area {
+float: right;
+width: 25em;
+}
+.faceted-area.center-area {
+float: right;
+margin-left: -25em;
+width: 100%;
+}
+.faceted-area.left-area {
+float: left;
+width: 25em;
+}
+.faceted-area.bottom-area {
+clear: both;
+}
+.right-area-js {
+margin-right: 25em;
+}
+.left-area-js {
+margin-left: 25em;
+}
+/* */
+.faceted-clear {
+clear: both;
+}
+.faceted-left-column div.faceted-text-widget input[type=submit] {
+float: right;
+}
+.faceted-right-column div.faceted-text-widget input[type=submit] {
+float: right;
+}
+.faceted-left-column div.faceted-text-widget input[type=text] {
+width: 99%;
+}
+.faceted-right-column div.faceted-text-widget input[type=text] {
+width: 99%;
+}
+.faceted-left-column div.faceted-select-widget select{
+width: 100%;
+}
+.faceted-right-column div.faceted-select-widget select{
+width: 100%;
+}
+.faceted-left-column div.faceted-resultsperpage-widget select{
+width: 100%;
+}
+.faceted-right-column div.faceted-resultsperpage-widget select{
+width: 100%;
+}
+.faceted-left-column div.faceted-sorting-widget select{
+width: 100%;
+}
+.faceted-right-column div.faceted-sorting-widget select{
+width: 100%;
+}
+#faceted-form fieldset {
+margin: 0.5em;
+padding: 1em 0.5em 0.5em 0.5em;
+border: 1px solid #ccc;
+}
+.widget-fieldset legend {
+margin-bottom: 0.5em;
+font-weight: bold;
+}
+/* */
+.faceted_loading {
+background: url(../../++resource++faceted_images/ajax-loader.gif) no-repeat 50% 1.5em;
+height: 200px;
+}
+/* */
+.faceted-section-header {
+}
+#faceted-form .ui-widget {
+font-size: 1em;
+}
+#faceted-form .ui-helper-reset {
+font-size: 1em;
+}
+#faceted-form .ui-accordion .ui-accordion-content {
+padding: 0;
+overflow: hidden;
+border: 0 none;
+}
+#faceted-form .ui-accordion .ui-state-default {
+border: none;
+background: #007bb1 none;
+margin: 0 0.5em;
+}
+#faceted-form .ui-accordion .ui-state-default a {
+color: #ffffff;
+font-weight: bold;
+}
+#faceted-form .ui-accordion .ui-state-default a:hover {
+border: none;
+color: #007bb1;
+}
+#faceted-form .ui-accordion .ui-state-active {
+border: none;
+background: #007bb1 none;
+margin: 0 0.5em;
+}
+#faceted-form .ui-accordion .ui-state-active a {
+color: #8e004d;
+font-weight: bold;
+}
+#faceted-form .ui-accordion .ui-state-active a:hover{
+border: none;
+cursor: text;
+}
+.faceted-widget-locked legend {
+color: #CCC;
+}
+.faceted-lock-overlay {
+background: none;
+}
+.faceted-widget-loading {
+background: url(../../++resource++faceted_images/ajax-loader-small.gif) no-repeat 95% 1.5em;
+}
+/* */
+.faceted-widget-error {
+display: none;
+}
+#faceted-form .faceted-sections-buttons {
+float: right;
+margin-right: 0.5em;
+}
+#faceted-form .faceted-sections-buttons a {
+display: none;
+color: #007bb1;
+}
+.eea-preview-items .photoAlbumEntryWrapper {
+display: block;
+}
+.eea-preview-items:after {
+content: '.';
+display: block;
+height: 0;
+clear: both;
+visibility: hidden;
+}
+.icon-faceted_settings:before {
+content: '\e812';
+}
+.table_faceted_no_results {
+display: block;
+text-align: center;
+margin-top: 2em;
+color: #b2b2b2;
+}
+#content-core .faceted-sections-buttons a,
+.faceted-sections-buttons a {
+border-bottom: none;
+}
+.faceted-remove {
+font-size: 0px;
+}
+.faceted-remove::before {
+font-size: small;
+content: "x";
+}
+
+}
+
+
+/* - ++resource++eea.facetednavigation.widgets.tagscloud.view.css - */
+@media screen {
+/* https://tu-dresden.de/portal_css/++resource++eea.facetednavigation.widgets.tagscloud.view.css?original=1 */
+.tags-cloud li {
+border: none;
+text-decoration: none;
+cursor: pointer;
+color: #007bb1;
+}
+.tags-cloud li:hover{
+color: orange ! important;
+}
+.faceted-tag-disabled {
+color: #ccc ! important;
+}
+li.faceted-tag-disabled:hover {
+color: #ccc ! important;
+}
+.faceted-tag-selected {
+color: orange ! important;
+font-size: 110%;
+}
+.faceted-zero-count-hidden li.faceted-tag-disabled {
+display: none ! important;
+}
+
+}
+
+
+/* - ++resource++eea.facetednavigation.widgets.sorting.view.css - */
+@media screen {
+/* https://tu-dresden.de/portal_css/++resource++eea.facetednavigation.widgets.sorting.view.css?original=1 */
+.faceted-sorting-errors {
+display: none;
+}
+
+}
+
+
+/* - ++resource++eea.facetednavigation.widgets.range.view.css - */
+@media screen {
+/* https://tu-dresden.de/portal_css/++resource++eea.facetednavigation.widgets.range.view.css?original=1 */
+.faceted-range-widget-form div {
+float: left;
+margin-left: 0.5em;
+}
+.faceted-range-widget-form div label {
+display: block;
+}
+.faceted-range-widget-form input {
+width: 10em;
+}
+
+}
+
+
+/* - ++resource++eea.facetednavigation.widgets.portlet.view.css - */
+@media screen {
+/* https://tu-dresden.de/portal_css/++resource++eea.facetednavigation.widgets.portlet.view.css?original=1 */
+.faceted-portlet-widget fieldset {
+margin: 0.5em;
+padding: 0em;
+}
+
+}
+
+
+/* - ++resource++eea.facetednavigation.widgets.path.view.css - */
+@media screen {
+/* https://tu-dresden.de/portal_css/++resource++eea.facetednavigation.widgets.path.view.css?original=1 */
+.faceted-path-widget input {
+width: 99%;
+}
+.faceted-path-widget .tree {
+position: absolute ! important;
+background-color: #FFFFFF;
+border: 1px dotted #CCCCCC;
+z-index: 1;
+}
+.faceted-path-widget .tree > .ltr > li {
+display: block ! important;
+}
+.faceted-path-widget .tree li a {
+border: none ! important;
+}
+
+}
+
+
+/* - ++resource++eea.facetednavigation.widgets.multiselect.view.css - */
+@media screen {
+/* https://tu-dresden.de/portal_css/++resource++eea.facetednavigation.widgets.multiselect.view.css?original=1 */
+.faceted-multiselect-item-disabled {
+color: gray;
+}
+.faceted-zero-count-hidden .faceted-multiselect-item-disabled {
+display: none;
+}
+.faceted-multiselect-widget label.multiselect-field {
+position:absolute;
+left:-10000px;
+top:auto;
+width:1px;
+height:1px;
+overflow:hidden;
+}
+.faceted_multiselect {
+width: 100%;
+}
+.faceted-multiselect-widget .faceted-operator {
+margin-top: 0;
+}
+.faceted-multiselect-widget .select2-container .select2-choice {
+background-image: none;
+font-weight: normal;
+}
+.faceted-multiselect-widget .select2-container .select2-choice abbr {
+top: 6px;
+}
+.faceted-multiselect-widget .select2-container .select2-choice .select2-arrow {
+background-image: none;
+background-color: transparent;
+border: none;
+}
+.faceted-multiselect-widget .select2-container-multi .select2-choices .select2-search-choice {
+background-image: none;
+background-color: transparent;
+border: none;
+box-shadow: none;
+font-weight: normal;
+}
+.faceted-multiselect-widget .faceted-operator a,
+.faceted-multiselect-widget .select2-search-choice-close,
+#content-core .faceted-multiselect-widget .faceted-operator a,
+#content-core .faceted-multiselect-widget .select2-search-choice-close {
+border-bottom: none;
+}
+
+}
+
+
+/* - ++resource++eea.facetednavigation.widgets.debug.view.css - */
+@media screen {
+/* https://tu-dresden.de/portal_css/++resource++eea.facetednavigation.widgets.debug.view.css?original=1 */
+.faceted-debug-widget pre {
+max-height: 200px;
+}
+.faceted-debug-widget dt {
+clear: both;
+}
+
+}
+
+
+/* - ++resource++eea.facetednavigation.widgets.daterange.view.css - */
+@media screen {
+/* https://tu-dresden.de/portal_css/++resource++eea.facetednavigation.widgets.daterange.view.css?original=1 */
+.faceted-daterange-widget-form div {
+}
+.faceted-daterange-widget-form div label {
+display: block;
+}
+.faceted-daterange-widget-form input {
+width: 100%;
+}
+.faceted-daterange-widget-form button {
+bottom: 0;
+}
+
+}
+
+
+/* - ++resource++eea.facetednavigation.widgets.date.view.css - */
+@media screen {
+/* https://tu-dresden.de/portal_css/++resource++eea.facetednavigation.widgets.date.view.css?original=1 */
+.faceted-date-widget form {
+margin: 2em;
+margin-top: 0;
+}
+.faceted-date-widget-form .ui-slider span.ui-slider-label {
+position:relative;
+}
+.faceted-date-widget-form .ui-state-default,
+.faceted-date-widget-form .ui-widget-content .ui-state-default {
+background-image: none;
+background-color: #007bb1;
+border-color: #007bb1;
+border-width: 1px;
+border-style: solid;
+margin: 0;
+}
+.faceted-date-widget-form .ui-slider {
+border: 1px solid #007bb1;
+}
+.faceted-date-widget-form .ui-slider-tooltip {
+border: 1px solid #aaa;
+}
+.faceted-date-widget-form .ui-slider-horizontal {
+margin-left:-0.6em;
+}
+.faceted-date-widget-form .ui-widget-header {
+background-image: none;
+background-color: #007bb1;
+}
+
+}
+
+
+/* - ++resource++eea.facetednavigation.widgets.criteria.view.css - */
+@media screen {
+/* https://tu-dresden.de/portal_css/++resource++eea.facetednavigation.widgets.criteria.view.css?original=1 */
+/* */
+.faceted-criteria {
+text-align: left;
+}
+.faceted-criteria span {
+padding-left: 0.2em;
+padding-right: 0.5em;
+}
+.faceted-criteria dt{
+font-weight: bold;
+}
+.faceted-criteria dd{
+margin-left: 1.5em;
+font-weight: normal;
+}
+.faceted-criteria-hide-show {
+float: left;
+margin-right: 1em;
+}
+.faceted-criteria-show {
+display: none;
+}
+.faceted-criteria-show:before {
+content: "+";
+}
+.faceted-criteria-hide:before {
+content: "-";
+}
+.faceted-criteria-count {
+display: none;
+}
+
+}
+
+
+/* - ++resource++eea.facetednavigation.widgets.autocomplete.view.css - */
+@media screen {
+/* https://tu-dresden.de/portal_css/++resource++eea.facetednavigation.widgets.autocomplete.view.css?original=1 */
+.faceted-autocomplete-widget label.text-field {
+position:absolute;
+left:-10000px;
+top:auto;
+width:1px;
+height:1px;
+overflow:hidden;
+}
+.faceted-autocomplete-widget .select2-container {
+margin-bottom: auto;
+display: inherit;
+}
+.faceted-autocomplete-widget .select2-container .select2-choice {
+background-image: none;
+font-weight: normal;
+}
+.faceted-autocomplete-widget .select2-container .select2-choice abbr {
+top: 6px;
+}
+.faceted-autocomplete-widget .select2-container .select2-choice .select2-arrow {
+background-image: none;
+background-color: transparent;
+border: none;
+}
+#content .faceted-autocomplete-widget .select2-container-multi .select2-choices,
+.faceted-autocomplete-widget .select2-container-multi .select2-choices {
+margin-left: 0;
+}
+.faceted-autocomplete-widget .select2-container-multi .select2-choices .select2-search-choice {
+background-image: none;
+background-color: transparent;
+border: none;
+box-shadow: none;
+font-weight: normal;
+}
+.faceted-autocomplete-widget .faceted-operator a,
+.faceted-autocomplete-widget .select2-search-choice-close,
+#content-core .faceted-autocomplete-widget .faceted-operator a,
+#content-core .faceted-autocomplete-widget .select2-search-choice-close {
+border-bottom: none;
+}
+.faceted-autocomplete-widget input[type=submit] {
+float: right;
+}
+
+}
+
+
+/* - ++resource++eea.facetednavigation.widgets.alphabets.view.css - */
+@media screen {
+/* https://tu-dresden.de/portal_css/++resource++eea.facetednavigation.widgets.alphabets.view.css?original=1 */
+.faceted-zero-count-hidden .faceted-alphabetic-letter-disabled {
+display: none;
+}
+.faceted-top-column .faceted-alphabetic-widget {
+text-align: center;
+}
+.faceted-center-column .faceted-alphabetic-widget {
+text-align: center;
+}
+.faceted_letter {
+color: #007bb1;
+font-weight: bold;
+font-size: 1.2em;
+cursor: pointer;
+padding: 0 0.2em 0 0.2em;
+background-color: transparent;
+}
+.faceted_letter:hover{
+color: orange;
+}
+.faceted_letter_selected {
+color: orange;
+font-size: 1.7em;
+}
+.faceted-alphabetic-letter-disabled {
+color: #E6E6E6;
+cursor: auto;
+}
+.faceted-alphabetic-letter-disabled:hover{
+color: #E6E6E6;
+background-color: transparent;
+}
+
+}
+
