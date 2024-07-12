@@ -14,7 +14,7 @@ class TUDresden(InputWebsiteScraper):
     name = 'TU Dresden'
     url = 'https://tu-dresden.de/tu-dresden/veranstaltungskalender/veranstaltungskalender?b_start:int=0'
     urldev = r'dev_websites/Veranstaltungskalender — TU Dresden — TU Dresden.htm'
-    ready = False
+    ready = True
 
     def scrape_events(self, search_start_date: dt.datetime, search_end_date: dt.datetime) -> list[Event]:
         events: list[Event] = []
@@ -42,32 +42,35 @@ class TUDresden(InputWebsiteScraper):
         locale.setlocale(locale.LC_TIME, 'de_DE')
 
         for event in event_container:
-
             #date and type
             date_type = event.find('p',{'class':'date'}).find('span').text.replace('\n','').replace(' ','').split(';')
-            event_type =date_type[1]
+            try: event_type =date_type[1]
+            except: event_type = 'not given'
             # year and date
             try: yeardate = dt.datetime.strptime(date_type[0], '%d.%m.%Y')
             except:
                 messagebox.showwarning('>>> WARNING <<<', 'Years and dates in ' + self.name + '-Scraper may not be correct.')
                 break
-
             # Go to next date if start_date lays in past
             if(yeardate<search_start_date):continue
             # Stop searching when enddate is reached
-            if(yeardate>search_end_date):break
+            if(yeardate>search_end_date):
+                break
 
             # time (multiple character replacements and splits of string are needed)
             time_str = event.find('div',{'class': 'columns small-12 medium-6 time'}).text.replace('\n','').replace(' ','').replace('Zeit','').replace('Uhr','')
-            if('-' in time_str):
+            if('Ganztägig'in time_str):
+                yeardatetime = dt.datetime(yeardate.year,yeardate.month,yeardate.day)
+                yeardatetime_end = None
+            elif('-' in time_str):
                 str_hh_mm = time_str.split('-')[0].split(':')
+                yeardatetime = dt.datetime(yeardate.year,yeardate.month,yeardate.day,int(str_hh_mm[0]),int(str_hh_mm[1]))
                 str_hh_mm_end = time_str.split('-')[1].split(':')
                 yeardatetime_end = dt.datetime(yeardate.year,yeardate.month,yeardate.day,int(str_hh_mm_end[0]),int(str_hh_mm_end[1]))
             else:
                 str_hh_mm = time_str.split(':')
                 yeardatetime_end = None
-            # Year, sate and time 
-            yeardatetime = dt.datetime(yeardate.year,yeardate.month,yeardate.day,int(str_hh_mm[0]),int(str_hh_mm[1]))
+                yeardatetime = dt.datetime(yeardate.year,yeardate.month,yeardate.day,int(str_hh_mm[0]),int(str_hh_mm[1]))
 
             #Eventtitle
             event_title = event.find('h2',{'class': 'headline'}).text
@@ -92,9 +95,18 @@ class TUDresden(InputWebsiteScraper):
                 event_type = event_type,
                 description_long = event_details,
             )]
-        print('----------------------------')
-        print(events)
+            print('----------------------------')
+            print(event_title)
+            print(yeardatetime)
+        # check sub pages (here normaly max 3)
+        if(self.ready and yeardate>search_end_date):
+            try:
+                next_page_link = soup.find('li',{'class':'pagination-next'}).find('a')['href']
+                self.url = next_page_link
+                devScraper.scrape_events(search_start_date = search_start_date, search_end_date = search_end_date)
+            except:
+                print('No further page.')
         return events
 
 devScraper = TUDresden()
-devScraper.scrape_events(search_start_date = dt.datetime(2023,12,16), search_end_date = dt.datetime(2024,1,19))
+len(devScraper.scrape_events(search_start_date = dt.datetime(2023,12,16), search_end_date = dt.datetime(2024,9,19)))
