@@ -95,9 +95,6 @@ class TUDresden(InputWebsiteScraper):
                 event_type = event_type,
                 description_long = event_details,
             )]
-            print('----------------------------')
-            print(event_title)
-            print(yeardatetime)
         # check sub pages (here normaly max 3)
         if(self.ready and yeardate>search_end_date):
             try:
@@ -108,5 +105,5 @@ class TUDresden(InputWebsiteScraper):
                 print('No further page.')
         return events
 
-devScraper = TUDresden()
-len(devScraper.scrape_events(search_start_date = dt.datetime(2023,12,16), search_end_date = dt.datetime(2024,9,19)))
+#devScraper = TUDresden()
+#devScraper.scrape_events(search_start_date = dt.datetime(2023,12,16), search_end_date = dt.datetime(2024,9,19))
