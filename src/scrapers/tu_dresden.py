@@ -3,7 +3,6 @@
 # ... https://tu-dresden.de/tu-dresden/veranstaltungskalender/veranstaltungskalender?b_start:int=14
 # ...
 # Organiser not implemented (not provided)
-import tkinter as tk
 from tkinter import messagebox
 import datetime as dt
 import requests
@@ -15,7 +14,7 @@ class TUDresden(InputWebsiteScraper):
     name = 'TU Dresden'
     url = 'https://tu-dresden.de/tu-dresden/veranstaltungskalender/veranstaltungskalender?b_start:int=0'
     urldev = r'dev_websites/Veranstaltungskalender — TU Dresden — TU Dresden.htm'
-    ready = True
+    ready = False
 
     def scrape_events(self, search_start_date: dt.datetime, search_end_date: dt.datetime) -> list[Event]:
         events: list[Event] = []
@@ -33,6 +32,11 @@ class TUDresden(InputWebsiteScraper):
 
         #find events
         event_container = event_list.findAll('div',{'class':'contentSlot'})
+
+        #check if event_container is empty (no events in claender or scraping issue)
+        if not event_container:
+            messagebox.showwarning(title='Empty event list.', message='Eventlist is empty. No events in calendar or a scraping issue due to website change might be the issue.')
+            exit()
 
         #set timezone
         locale.setlocale(locale.LC_TIME, 'de_DE')
@@ -54,8 +58,14 @@ class TUDresden(InputWebsiteScraper):
             if(yeardate>search_end_date):break
 
             # time (multiple character replacements and splits of string are needed)
-            str_hh_mm = event.find('div',{'class': 'columns small-12 medium-6 time'}).text.replace('\n','').replace(r' ','').split('Zeit')[1].split('-')[0].split(':')
-
+            time_str = event.find('div',{'class': 'columns small-12 medium-6 time'}).text.replace('\n','').replace(' ','').replace('Zeit','').replace('Uhr','')
+            if('-' in time_str):
+                str_hh_mm = time_str.split('-')[0].split(':')
+                str_hh_mm_end = time_str.split('-')[1].split(':')
+                yeardatetime_end = dt.datetime(yeardate.year,yeardate.month,yeardate.day,int(str_hh_mm_end[0]),int(str_hh_mm_end[1]))
+            else:
+                str_hh_mm = time_str.split(':')
+                yeardatetime_end = None
             # Year, sate and time 
             yeardatetime = dt.datetime(yeardate.year,yeardate.month,yeardate.day,int(str_hh_mm[0]),int(str_hh_mm[1]))
 
@@ -70,13 +80,13 @@ class TUDresden(InputWebsiteScraper):
             if loc_help != None: event_location = loc_help.text
             else:event_location = 'no location found'
 
-
             #Description
             event_details = 'not implemented - see url'
             
             events += [Event(
                 title = event_title,
                 start_date = yeardatetime,
+                end_date = yeardatetime_end,
                 url = url,
                 location = event_location,
                 event_type = event_type,
@@ -86,5 +96,5 @@ class TUDresden(InputWebsiteScraper):
         print(events)
         return events
 
-#devScraper = TUDresden()
-#devScraper.scrape_events(search_start_date = dt.datetime(2023,12,16), search_end_date = dt.datetime(2024,1,9))
+devScraper = TUDresden()
+devScraper.scrape_events(search_start_date = dt.datetime(2023,12,16), search_end_date = dt.datetime(2024,1,19))
