@@ -1,0 +1,492 @@
+
+@import url(https://fonts.googleapis.com/css?family=BenchNine:300,400&subset=latin,latin-ext);
+@import url(font/kika/css/kika.css);
+a
+{
+    text-decoration: none;
+    /* color: #21A8CC; */
+    color: #ff7d00;
+}
+a:hover, a:focus { text-decoration: none; color: inherit;}
+
+body { font: normal 13px 'lucida grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva , sans-serif; }
+h1, h2, h3, .kalender, #footer nav {
+	font-family: 'BenchNine', sans-serif; 
+	text-transform: uppercase; 
+}
+h1, h2 {
+	font-weight: 300; 
+	text-transform: uppercase;
+}
+h1, h2, h3, h4 {margin: 0px; padding: 0px;line-height: 1.0em;}
+h1{ font-size: 3em }
+h2{ font-size: 2em }
+h3{ font-size: 1.4em; font-weight: 400; }
+p {margin: 1em 0;}
+
+.text-big { line-height: 1.6em; }
+
+.btn { cursor: pointer;}
+
+
+
+
+@media only screen and (min-width: 825px) {
+    body {font-size: 14px;}
+}
+.textblock {padding-left: 20px; padding-right: 20px;}
+
+.clearer, .clearfix {clear:both; float:none;}
+.block-xs {display: block;}
+
+body
+{
+	margin: 0;
+	padding: 0;
+/*	background-color: #f8f8f8; */
+	background-color: #222;
+	color: #444;
+/*	-webkit-text-size-adjust: none; */
+}
+
+#kika
+{
+	position: relative;
+}
+.mainCol { 
+	background: #ffffff; 
+}
+.sidebar .cont_head{box-shadow: 1px 0 0px #F8F8F8 inset;}
+.adCol {   overflow: hidden; }
+
+#inhalt
+{
+    min-height: 60vh;
+	position: relative;
+}
+.cont_head, .cont_block {
+	padding-top: 30px;
+}
+
+.cont_head { padding-bottom: 1em; }
+.cont_head.head-filter { padding-bottom: 0; }
+
+.list-footer {
+    padding-top: 1em; 
+    padding-bottom: 1em;
+}
+
+@media only screen and (min-width: 768px) {
+    .cont_head, .cont_block {
+	    min-height: 70px;
+    }
+}
+.cont_panel{
+	margin-bottom: 30px;
+}
+.cont_panel:last-child{
+	margin-bottom: 0;
+	padding-bottom: 0;
+	border-bottom: 0;
+}
+
+.aux-panel{border-top: 2px solid #f8f8f8;}
+
+#footer
+{
+/*	border-top: 2px solid #f8f8f8; */
+	padding-top: 2em;
+	padding-bottom: 2em;
+	color: #888;
+	background-color: #222; 
+}
+#footer nav { font-size: 1.4em; margin-top: 0.5em;}
+#footer a { color: inherit; }
+#footer a:hover { color: #aaa; }
+
+#kopf
+{
+	padding: 0;
+	background-color:#eee;
+	background-position: center center;
+	background-size: cover;
+	text-transform:uppercase;
+	font-weight: 400; font-family: 'BenchNine', sans-serif;
+	font-size: 1.3em;
+	color: #888;
+}
+
+#kopf .navbar .navbar-brand { padding-right: 0;}
+
+#kopf .navbar-text {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+#kopf .navbar .btn-region {
+    color: #000;
+    background-color: #9d9d9d;
+    border-width: 0;
+    margin-left: 5px;
+    margin-top: 10px;
+    padding-bottom: 0;
+    border-radius: 2px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+#kopf .navbar .btn-region:hover,
+#kopf .navbar .btn-region.active
+{
+    color: #444;
+    background-color: #ffd953;
+    box-shadow: inset 0 3px 2px rgba(0,0,0,0.1);
+}
+}
+#kopf .navbar .btn-suche {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#kopf .navbar-toggle {border: none; margin: 0;}
+#kopf .navbar-toggle .icon-bar {height: 4px;}
+#kopf .navbar {margin-bottom: 0; border: none;}
+#kopf .navbar-collapse {border-top: 1px solid transparent;}
+.navbar-nav { margin: 0;}
+
+ul.navi
+{
+	padding: 0px;
+	margin:0;
+	border: 0;
+	list-style:none;
+}
+.navi li{margin:0; }
+
+.navi .navipunkt {
+	padding-top: 6px;
+	padding-bottom: 6px;
+	margin: 0 0 1px 1px;
+	background-color:#fff; 
+	display: block;
+	border-radius: 2px;
+}
+
+.navi .programm_woche .navipunkt { color: inherit; }
+.navi a.navipunkt:hover, 
+.navi .navipunkt.active, 
+.terminliste .termin:hover, 
+.subnavi .subnavi_le.ac, 
+.subnavi .subnavi_le:hover, 
+.dropdown-menu .ac,
+.kalender .tag.ac, .kalender a.tag:hover
+ 	{ background-color:#ffed00; color: #000;}
+.kalender .col { float: left; }
+
+.auxiliary, .subnavi .subnavi_le {background-color:#f8f8f8;}
+/* .auxiliary .col-odd {background-color:#f4f4f4;} */
+.auxiliary .col-even {background-color:#eee;}
+.subnavi .subnavi_le {margin: 0px 0px 1px 0px; }
+.subnavi_le .textblock, .subnavi_le.textblock { padding-top: 12px; padding-bottom: 12px;  }
+.subnavi_le {display: block; color:inherit;}
+.subnavi_le .titel { font-weight: bold; }
+.subnavi_le h2 {margin-bottom: 0.1em;}
+.subnavi_le .thumb {background-size: cover;}
+
+
+/* KALENDER */
+
+.kalender {
+	text-align: center;
+	margin: 0;
+}
+.kalender .kal_kopf {
+	margin: 0.5em 0;
+}
+.kalender .wt {
+	width: 14.2857%;
+	padding: 0.3em 0;
+}
+.btn_kal { padding: 0 0.1em;}
+.kalender .tag {background-color: #222; color: #fff; display: block; margin: 0 auto; width: 1.4em; height: 1.4em; line-height: 1em; padding: 0.2em; border-radius: 0.7em;}
+.kalender .tag.outside {display: none;}
+.kalender .tag.empty {background-color: #eee; color: #999;}
+
+
+
+/* CMS */
+
+
+.cmsliste .cms-titel, .cmsliste .cms-teaser{ display: block;}
+
+.rss_btn {position: absolute; top: 20px; right: 15px; display: block; font-size: 2em; width: 1em; height: 1em; text-align: right;}
+
+.cmsliste .subnavi_le.ac {color: inherit;}
+.site_pager { text-align: center; color:#666; background-color:#eee; margin-bottom: 1px;}
+.site_pager .btn, .site_pager .pager_status{ padding: 0.5em; }
+.site_pager:last-child {margin-bottom: 0;}
+
+.cms_artikel .cms_datum {color: #888; font-size: 0.8em; margin-bottom: 5px;}
+
+.cms_artikel .cms_teaser{
+	color: #888;
+	line-height:1.3em;
+	margin: 4px 0px 0px 0px;
+}
+.cms_artikel .cms_bild { background-color: #eee; margin: 0 0px 1.6em 0px; }
+.cms_artikel .cms_bild img{
+/*	max-height: 600px; */
+	max-width: 100%;
+}
+.cms_artikel .textblock {margin-bottom: 2em;}
+
+.cms_artikel p, .mce_txt{
+	line-height:1.5em;
+}
+
+
+.msg-empty {text-align: center;}
+
+
+/* TERMINLISTE */
+
+.terminliste a {color: inherit;}
+
+.terminliste .termin { display: block; }
+
+.filmliste li, .terminliste .termin
+{
+	padding: 0.6em 0;
+}
+
+.filmliste li, .terminliste .termin
+{
+	border-top: 1px solid #f8f8f8;
+}
+
+.terminliste .titel {font-weight: bold;}
+.terminliste .va_reihe {font-size: 85%;}
+
+.inline-termine {margin-bottom: 2em;}
+.inline-termine .terminliste .datum {min-height: auto; padding-bottom: 0.5em;}
+
+
+
+.head-filter { position: relative;}
+.head-filter h1 {margin-bottom: 0.5em; position: relative;}
+.filter-block { background-color:#eee; margin-top: 0.3em;}
+
+
+/* FILM LISTE KOMPAKT */
+
+.filmliste_kompakt
+{
+	border-top: 1px solid #f8f8f8;
+}
+.filmliste_kompakt h3
+{
+	margin: 10px 0 10px 0;
+}
+.filmliste_kompakt .msg-empty {padding-top: 1em; padding-bottom: 1em;}
+.filmliste_kompakt_block
+{
+	padding: 0 0 1px 1px;
+	/* margin-left: 1px; */
+	float: none;
+	clear: both;
+	background-color: #444;
+	color: #ccc; 
+}
+
+.filmliste_kompakt_le
+{
+	overflow:hidden;
+	position: relative;
+	margin: 0px;
+	padding: 1px 1px 0 0;
+	float: left;
+	font-size: 0.8em;
+}
+.filmliste_kompakt_le a {
+	color: #ccc; 
+}
+.filmliste_kompakt_le a:hover {
+    color: #ffed00;
+}
+.filmliste_kompakt_le .filmbild {background-color: #222;}
+.filmliste_kompakt_le .textbox {background-color: #000; height: 8em; margin: 0; padding: 7px;}
+.filmliste_kompakt_le .film_titel {padding: 0; margin: 0; font-size: 1.4em; letter-spacing: 0.05em; /* line-height:1.3em; text-transform:uppercase; */}
+.filmliste_kompakt_le .labels {padding: 4px;}
+.filmliste_kompakt_le .film_lbl {color: #ffed00; padding: 1px 3px; margin-right: 1px; font-weight: bold; /* background-color: #21A8CC; */ background-color:rgba(0, 0, 0, 0.8); text-transform:uppercase;}
+
+.filmliste_kompakt_le .film_infos {color: #888;  display:block; margin-top:2px;}
+.filmliste_kompakt_le .btn_trailer_popup {padding: 5px 3px; position: absolute; bottom:0; right: 0; font-size: 1.6em;}
+
+.filmliste { margin: 10px 0 20px 0; padding:0; border-spacing: 0; list-style: none;}
+.filmliste.titelsuche .film_gefunden{display:none;}
+.filmliste .film_titel{text-transform:uppercase;}
+
+h3.datum { margin: 1em 0 0.3em 0; }
+
+.filmliste .trailer{ margin-top: 5px; }
+.filmliste .btn_trailer_inline {margin-top: -0.2em;}
+
+.filmliste_kopf {margin-top:10px; padding-top: 10px;}
+.liste-txt .filmliste_kopf { border-top: 2px solid #f8f8f8; }
+
+#locinfo .infoblock{
+	margin-bottom: 2em;
+}
+
+#ddkarte
+{
+	position:relative;
+	height:480px;
+	overflow:hidden;
+
+}
+#ddkarte_cont
+{
+	height:480px;
+	overflow:hidden;
+}
+.map_kinolink{font-size:16px;}
+
+.kinoliste{ text-transform:uppercase;}
+.kinoliste .ltr_bullet {display:block; width: 20px; float:left;}
+
+.reihe_bild, .festivalinfo_bild { margin:10px 0 20px 0; max-width:100%;}
+
+.trailer {display: none; z-index: -1; margin-bottom: 2em; /* clear:both; */ float: none; background: #000;}
+.trailer .embed-responsive {width: 100%;}
+
+.embed-responsive .mfp-close {color: #FFED00; background-color: rgba(0,0,0,0.5); opacity: 1;}
+
+
+.termin_details {margin-top: -10px; padding-bottom: 1.3em; margin-bottom: 1.3em; border-bottom: 1px solid #f8f8f8;}
+.termin_details a {color: inherit;}
+.termin_details .termin_location
+{
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.termin_details .termin_reihe {font-size: 0.8em;}
+
+.va_bild { margin: 1em 0; max-width: 100%; display: block;}
+.inhalt_va .va_titel {margin: 10px 0;}
+.inhalt_va .va-bemerkung{ color: #888; margin-top: 0.5em;}
+
+
+/* FILM */
+
+.filminfo
+{
+	padding: 10px 0px 0px 0px;
+	clear: both; 
+	line-height: 1.5em;
+	position: relative;
+}
+
+
+.filminfo .film_land { margin: 3px 0 10px 0; color: #888; }
+.filminfo .film_titel {margin-right: 1.3em;}
+.filminfo .btn_trailer_inline {z-index: 10000; position: absolute; top: 10px ; right: 0px; }
+.filminfo .btn_trailer_inline .lbl {display: none;}
+.filminfo .btn_trailer_inline:hover .lbl {display: inline;}
+.filminfo .btn_trailer_inline.toggled { top: -20px; padding: 5px 16px;}
+.filminfo .textblock.after-trailer {margin-right: 2em;}
+
+.filmdaten, .film_texte, .film_termine {padding-top: 1em; padding-bottom: 2em;}
+.film_termine .terminliste {
+    margin-top: 1em;
+    line-height: 1.8em;
+}
+
+.filmdaten p 		{ margin-bottom: 0; }
+.filmdaten a 		{ color: inherit; }
+.filmdaten a:hover 	{ color: #000; }
+.filmdaten p .stab_bez
+{
+	font-weight: bold;
+	text-transform: uppercase;
+	padding-right: 2px;
+}
+
+.filmbilder 		{ background-color: #333333; margin: 30px 0 0 0; overflow: hidden;}
+.filmbild.thumb 	{ width:100%; background-size: cover; background-position: center center;}
+
+
+.film_termine h2
+{
+	padding-bottom: 10px;
+}
+.film_termine .row {display: block; color: inherit;}
+.film_termine .row.ac, .film_termine .row:hover {background-color: #ffed00; color: #000;}
+.film_termine .film_lbl { background-color: #000; color: #ffed00;}
+
+
+
+.banner-top img {width: auto; height: auto; max-width: 100%; margin: 0 auto; display: block; box-shadow: 10px 0 20px #f00 inset;}
+.banner-slot {background-color: #f8f8f8;}
+.banner-top figcaption {padding: 2px; text-align: center; font-size: 9px;}
+
+/* bootstrap tweaks */
+.navbar-header {width: 100%;}
+.label { padding-top: 0.1em; padding-bottom: 0.2em; }
+.terminliste .label { vertical-align: 15%; }
+
+@media only screen and (max-width: 360px) {
+    .filter-block .dropdown-toggle, 
+    .filter-block .btn-group,
+    .filter-block .dropdown-menu 
+        {width: 100%; text-align: center;}
+}
+@media only screen and (max-width: 495px) {
+    .sidebar .cmsliste .col-xs-6 {width: 100%;}
+}
+
+@media only screen and (min-width: 361px) {
+    .filter-group {float: left;}
+}
+@media only screen and (min-width: 640px) {
+    .block-xs {display: inline;}
+    .termin_details .block-xs:before {content:' • '}
+    .termin_details .block-xs:first-child:before {content: none;}
+    .filminfo .btn_trailer_inline .lbl {display: inline;}
+    .filminfo .textblock.after-trailer {margin-right: 5em;}
+}
+
+/* small screen */
+@media only screen and (min-width: 768px) {
+    .filminfo .btn_trailer_inline.toggled { top: 10px;}
+/*    .banner-top {margin-right: 1px;} */
+}
+
+/* medium screen */
+@media only screen and (min-width: 992px) {
+   .sidebar .cmsliste .subnavi_le {border-bottom: 0.5em solid #ddd;}
+}
+
+/* large screen */
+@media only screen and (min-width: 1200px) {
+    .col-lg-1_8 {  width: 12.5%; }
+    .col-lg-3_8 {  width: 37.5%; }
+    .col-lg-5_8 {  width: 62.5%; }
+    #main-navi .navipunkt {font-size: 85%; text-align: center;}
+    .sidebar .cmsliste .subnavi_le {border-bottom: none;}
+    
+    .cms_artikel .textblock,
+    .va_text 
+    {
+        font-size: 1.3em;
+    }
+
+}
+
+/* max screen width  */
+@media only screen and (min-width: 1418px) {
+    .mainCol {max-width: 1408px; margin: 0 auto; box-shadow: 1px 1px 5px #ccc}
+    body {background-color: #e8e8e8; padding: 1em;}
+}
+
+
