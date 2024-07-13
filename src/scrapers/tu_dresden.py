@@ -16,8 +16,10 @@ class TUDresden(InputWebsiteScraper):
     urldev = r'dev_websites/Veranstaltungskalender — TU Dresden — TU Dresden.htm'
     ready = True
 
-    def scrape_events(self, search_start_date: dt.datetime, search_end_date: dt.datetime) -> list[Event]:
-        events: list[Event] = []
+    def scrape_events(self, search_start_date: dt.datetime, search_end_date: dt.datetime,eventsREC) -> list[Event]:
+        #this scraper works recursive
+        events: list[Event] = eventsREC
+
         # distinguish between developer and ready mode
         if(self.ready):
             response =  requests.get(self.url)
@@ -47,7 +49,11 @@ class TUDresden(InputWebsiteScraper):
             try: event_type =date_type[1]
             except: event_type = 'not given'
             # year and date
-            try: yeardate = dt.datetime.strptime(date_type[0], '%d.%m.%Y')
+            try: 
+                if('-' in date_type[0]):
+                    yeardate = dt.datetime.strptime(date_type[0].split('-')[0], '%d.%m.%Y')
+                else:
+                    yeardate = dt.datetime.strptime(date_type[0], '%d.%m.%Y')
             except:
                 messagebox.showwarning('>>> WARNING <<<', 'Years and dates in ' + self.name + '-Scraper may not be correct.')
                 break
@@ -96,14 +102,18 @@ class TUDresden(InputWebsiteScraper):
                 description_long = event_details,
             )]
         # check sub pages (here normaly max 3)
-        if(self.ready and yeardate>search_end_date):
+        if(self.ready and yeardate<search_end_date):
             try:
                 next_page_link = soup.find('li',{'class':'pagination-next'}).find('a')['href']
                 self.url = next_page_link
-                devScraper.scrape_events(search_start_date = search_start_date, search_end_date = search_end_date)
+                return devScraper.scrape_events(search_start_date = search_start_date, search_end_date = search_end_date,eventsREC=events)
             except:
                 print('No further page.')
+                return events
         return events
 
-#devScraper = TUDresden()
-#devScraper.scrape_events(search_start_date = dt.datetime(2023,12,16), search_end_date = dt.datetime(2024,9,19))
+devScraper = TUDresden()
+allEvents = devScraper.scrape_events(search_start_date = dt.datetime(2024,7,14), search_end_date = dt.datetime(2025,12,19),eventsREC=[])
+print(len(allEvents))
+for ev in allEvents:
+    print(ev.start_date)
