@@ -13,7 +13,7 @@ class DHMD(InputWebsiteScraper):
     urldev = r'dev_websites/Kalender kommende Events im Hygiene Museum Dresden.htm'
     ready = True
 
-    def scrape_events(self, start_date: dt.datetime, search_end_date: dt.datetime) -> list[Event]:
+    def scrape_events(self, search_start_date: dt.datetime, search_end_date: dt.datetime) -> list[Event]:
         events: list[Event] = []
         # distinguish between developer and ready mode
         if(self.ready):
@@ -45,7 +45,7 @@ class DHMD(InputWebsiteScraper):
             yeardatetime = dt.datetime(yeardate.year,yeardate.month,yeardate.day,time.hour,time.minute)
 
             # Go to next date if start_date lays in past
-            if(yeardate<start_date):continue
+            if(yeardate<search_start_date):continue
 
             # Stop searching when enddate is reached
             if(yeardate>search_end_date):break

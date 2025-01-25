@@ -19,7 +19,7 @@ class Medienkulturzentrum(InputWebsiteScraper):
     urldev = r'dev_websites/Angebote - Medienkulturzentrum Dresden.htm'
     ready = True
 
-    def scrape_events(self, start_date: dt.datetime, search_end_date: dt.datetime) -> list[Event]:
+    def scrape_events(self, search_start_date: dt.datetime, search_end_date: dt.datetime) -> list[Event]:
         events: list[Event] = []
         # distinguish between developer and ready mode
         if(self.ready):
@@ -45,7 +45,7 @@ class Medienkulturzentrum(InputWebsiteScraper):
                 break
 
             # Go to next date if start_date lays in past
-            if(yeardate<start_date):continue
+            if(yeardate<search_start_date):continue
 
             # Stop searching when enddate is reached
             if(yeardate>search_end_date):break

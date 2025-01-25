@@ -12,7 +12,7 @@ class Verbraucherzentrale(InputWebsiteScraper):
     urldev = r'dev_websites/Veranstaltungen Verbraucherzentrale Sachsen.htm'
     ready = True
 
-    def scrape_events(self, start_date: dt.datetime, end_date: dt.datetime) -> list[Event]:
+    def scrape_events(self, search_start_date: dt.datetime, search_end_date: dt.datetime) -> list[Event]:
         events: list[Event] = []
         # distinguish between developer and ready mode
         if(self.ready):
@@ -32,9 +32,9 @@ class Verbraucherzentrale(InputWebsiteScraper):
             event_date = ev.find('div',{'class': 'date_event'}).find('time',{'class': 'datetime'})['datetime'].replace('T12:00:00Z','')
             event_date = dt.datetime.fromisoformat(event_date)
             # Go to next date if start_date lays in past
-            if(event_date<start_date):continue
+            if(event_date<search_start_date):continue
             # Stop searching when enddate is reached
-            if(event_date>end_date):break
+            if(event_date>search_end_date):break
 
             #Eventtitle
             event_title = ev.find('div',{'class': 'title'}).text

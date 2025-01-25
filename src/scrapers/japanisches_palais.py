@@ -9,7 +9,7 @@ class JapanischesPalais(InputWebsiteScraper):
     url = 'https://japanisches-palais.skd.museum/programm/'
     ready = True
 
-    def scrape_events(self, start_date: dt.datetime, end_date: dt.datetime)-> list[Event]:
+    def scrape_events(self, search_start_date: dt.datetime, search_end_date: dt.datetime)-> list[Event]:
         print(self.name, 'Scraper started.')
         '''Example Scraper Class Implementation'''
         events: list[Event] = []
@@ -24,9 +24,9 @@ class JapanischesPalais(InputWebsiteScraper):
             #find date
             event_date = dt.datetime.strptime(el.attrs.get('data-date'),"%Y-%m-%d")
             # Go to next date if start_date lays in past
-            if(event_date<start_date):continue              
+            if(event_date<search_start_date):continue              
             #stop searching when enddate is reached
-            if(event_date>end_date):break
+            if(event_date>search_end_date):break
             #find all events at current date
             soup_events = el.findAll('div',{'class':'skd-module-program-teaser-content'})
             #get information of events

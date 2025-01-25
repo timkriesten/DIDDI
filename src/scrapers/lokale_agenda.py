@@ -9,7 +9,7 @@ class LokaleAgenda(InputWebsiteScraper):
     url = 'https://la-dresden.de/startseite/veranstaltungen/'
     ready = True
 
-    def scrape_events(self, start_date: dt.datetime, end_date: dt.datetime)-> list[Event]:
+    def scrape_events(self, search_start_date: dt.datetime, search_end_date: dt.datetime)-> list[Event]:
         print(self.name, 'Scraper started.')
         # initialise event list
         events: list[Event] = []
