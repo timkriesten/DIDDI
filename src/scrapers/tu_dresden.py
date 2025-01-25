@@ -65,13 +65,23 @@ class TUDresden(InputWebsiteScraper):
 
             # time (multiple character replacements and splits of string are needed)
             time_str = event.find('div',{'class': 'columns small-12 medium-6 time'}).text.replace('\n','').replace(' ','').replace('Zeit','').replace('Uhr','')
+            #is there a date in time_str?
+            multiple_days = False
+            #Multiple days like this: 07.02.2025,15:00-08.02.2025,20:00 or just a str. time
+            if(',' in time_str):
+                multiple_days = True
+                str_hh_mm = time_str.split(',')[1].split('-')[0].split(':')
+                str_hh_mm_end = time_str.split(',')[2].split(':')
+                messagebox.showwarning(title='Warning.', message='This event might run on several days. Please check the website.\n' +'Event: ' +event_title + '\n Website: ' + url)
             if('Ganztägig'in time_str):
                 yeardatetime = dt.datetime(yeardate.year,yeardate.month,yeardate.day)
                 yeardatetime_end = None
             elif('-' in time_str):
-                str_hh_mm = time_str.split('-')[0].split(':')
+                # split at "-"
+                if(not multiple_days):
+                    str_hh_mm = time_str.split('-')[0].split(':')
+                    str_hh_mm_end = time_str.split('-')[1].split(':')
                 yeardatetime = dt.datetime(yeardate.year,yeardate.month,yeardate.day,int(str_hh_mm[0]),int(str_hh_mm[1]))
-                str_hh_mm_end = time_str.split('-')[1].split(':')
                 yeardatetime_end = dt.datetime(yeardate.year,yeardate.month,yeardate.day,int(str_hh_mm_end[0]),int(str_hh_mm_end[1]))
             else:
                 str_hh_mm = time_str.split(':')
