@@ -1,4 +1,5 @@
-# The year of each event is not saved in a specific tag on this (DHMD) website. But it can be extracted from the href-link of each event, since each link ends with '/date'
+# url is overwritten with event url
+# title always starts with 'Erfahren Sie mehr über die Veranstaltung...' can me removed
 import tkinter as tk
 from tkinter import messagebox
 import datetime as dt
@@ -7,11 +8,13 @@ import locale
 from bs4 import BeautifulSoup
 from definitions import InputWebsiteScraper, Event
 
+testmode = False
 class DHMD(InputWebsiteScraper):
     name = 'Deutsches Hygienemuseum'
-    url = 'https://www.dhmd.de/veranstaltungen/kalender'
-    urldev = r'dev_websites/Kalender kommende Events im Hygiene Museum Dresden.htm'
+    url = 'https://shop.dhmd.de/veranstaltungen'
+    urldev = r'dev_websites/Veranstaltungen - Deutsches Hygiene Museum Dresden.htm'
     ready = True
+    
 
     def scrape_events(self, search_start_date: dt.datetime, search_end_date: dt.datetime) -> list[Event]:
         events: list[Event] = []
@@ -25,57 +28,48 @@ class DHMD(InputWebsiteScraper):
             soup = BeautifulSoup(webpage_content, "html.parser")
 
         # find code part with event list
-        event_list = soup.find('div',{'id':r'events-list'})
+        event_list = soup.find('div',{'class':r'event-list'})
         #find events
-        event_container = event_list.findAll('div',{'class':'csc-default'})
+        event_container = event_list.findAll('a',{'class':'event-item event-availability-element'})
         #set timezone
         locale.setlocale(locale.LC_TIME, 'de_DE')
         for event in event_container:
-            #Url (here first since url contains date information at the end)
-            url = event.find('a',{'class':'more'})['href']
+            #find date and time
+            yeardatetime = dt.datetime.strptime(event.find('time')['datetime'], '%Y-%m-%d %H:%M')
 
-            # year and date
-            try: yeardate = dt.datetime.strptime(url.rsplit('/', 1)[-1], '%Y-%m-%d')
-            except:
-                messagebox.showwarning('>>> WARNING <<<', 'Years and dates in ' + self.name + '-Scraper may not be correct.')
-                break
-            # date and time without year            
-            time = dt.datetime.strptime(str(event.find('strong',{'class': 'date'}).text), '%a. %d. %b, %H:%M Uhr')
-            # Year, sate and time 
-            yeardatetime = dt.datetime(yeardate.year,yeardate.month,yeardate.day,time.hour,time.minute)
+            #Url (here first since url contains date information at the end)
+            url = event['href']
 
             # Go to next date if start_date lays in past
-            if(yeardate<search_start_date):continue
+            if(yeardatetime<search_start_date):continue
 
             # Stop searching when enddate is reached
-            if(yeardate>search_end_date):break
+            if(yeardatetime>search_end_date):break
   
             #Eventtitle
-            event_title = event.find('h3').text
+            event_title = event['title']
 
             #Type
-            event_type=''
-            for i,label in enumerate(event.findAll('div',{'class': 'label'})):
-                if i ==0: event_type = label.text
-                else: event_type = event_type + ', ' + label.text
+            event_type= event.find('div',{'class': 'figcaption'}).text
 
             #Location
-            event_location = 'verm. Hygienemuseum'
+            event_location = 'not given - verm. Hygienemuseum'
 
             #Description
-            event_details = event.find('p').text
+            event_details = event.find('article',{'class': 'desc'}).find('p').text
 
             events += [Event(
                 title = event_title,
                 start_date = yeardatetime,
-                url = self.url,
+                url = url,
                 location = event_location,
                 event_type = event_type,
                 description_long = event_details,
             )]
-
-        
         return events
     
-#devScraper = DHMD()
-#devScraper.scrape_events(start_date = dt.datetime(2023,12,16), search_end_date = dt.datetime(2023,12,31))
+if(testmode):
+    devScraper = DHMD()
+    evs = devScraper.scrape_events(search_start_date = dt.datetime(2025,1,25), search_end_date = dt.datetime(2025,2,5))
+    for ev in evs:
+        print(ev.title)
