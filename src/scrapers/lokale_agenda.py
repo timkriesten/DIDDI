@@ -1,8 +1,9 @@
 from bs4 import BeautifulSoup
-from src.definitions import InputWebsiteScraper, Event
+from definitions import InputWebsiteScraper, Event
 import requests
 import datetime as dt
 import locale
+from dateutil.relativedelta import *
 
 class LokaleAgenda(InputWebsiteScraper):
     name = 'Lokale Agenda'
@@ -28,24 +29,28 @@ class LokaleAgenda(InputWebsiteScraper):
             # TITLE
             event_title = ev.find('p',{'class':'medium margin0 eventname'}).text
             # following text format
-            #   Mi. 13. Sep 2023, 19:00 Uhr | Deutsches Hygiene-Museum Dresden
-            #   Fr. 31. Mrz 2023 - So. 07. Jan 2024, 10:00 Uhr | Verkehrsmuseum Dresden
+            #   Mi.. 13. Sep 2023, 19:00 Uhr | Deutsches Hygiene-Museum Dresden
+            #   Fr.. 31. Mrz 2023 - So. 07. Jan 2024, 10:00 Uhr | Verkehrsmuseum Dresden
             #   therefore split  at '| '
-            help = ev.find('p', {'class': 'medium condensed margin0 eventdate'}).text.split('| ')
+            # In the past there was just one '.' behind the day --> Funktion to replace '..' with '.'
+            # Additionally, another '.' was added behind the month the new Dates look like:
+            # Mi.. 29. Jan. 2025 | Online
+            help = ev.find('p', {'class': 'medium condensed margin0 eventdate'}).text.replace('..','.').split('| ')
+
             # EVENTTIME
             # Check if the character '-' exists in the string using find() -->  means that event lasts more than one day
             if help[0].find('-') != -1:
                 event_time = help[0].split(', ')[1].replace(' Uhr', '')
-                event_start_date = dt.datetime.strptime(help[0].split(' -')[0], '%a. %d. %b %Y')
-                event_end_date = dt.datetime.strptime(help[0].split('- ')[1].split(',')[0], '%a. %d. %b %Y')
+                event_start_date = dt.datetime.strptime(help[0].split(' -')[0], '%a. %d. %b. %Y')
+                event_end_date = dt.datetime.strptime(help[0].split('- ')[1].split(',')[0], '%a. %d. %b. %Y')
             else:
                 event_time = help[0].split(', ')[1].replace(' Uhr', '')
-                event_start_date = dt.datetime.strptime(help[0].split(', ')[0], '%a. %d. %b %Y')
+                event_start_date = dt.datetime.strptime(help[0].split(', ')[0], '%a. %d. %b. %Y')
                 event_end_date =None
             # Go to next date if start_date lays in past
-            if(event_start_date<start_date):continue            
+            if(event_start_date<search_start_date):continue            
             #stop searching when enddate is reached
-            if(event_start_date>end_date):break
+            if(event_start_date>search_end_date):break
             # EVENT LOCATION
             event_location = help[1]
             # EVENT TIME
@@ -65,3 +70,6 @@ class LokaleAgenda(InputWebsiteScraper):
             )]
 
         return events
+    
+#devScraper = LokaleAgenda()
+#devScraper.scrape_events(search_start_date = dt.datetime(2025,1,25), search_end_date = dt.datetime(2025,2,6))
