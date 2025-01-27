@@ -1,9 +1,11 @@
 from bs4 import BeautifulSoup
-from src.definitions import InputWebsiteScraper, Event
+from definitions import InputWebsiteScraper, Event
 import requests
 import datetime as dt
-import re
+import locale
+from dateutil.relativedelta import *
 
+testmode = False
 class JapanischesPalais(InputWebsiteScraper):
     name = 'JapanischesPalais'
     url = 'https://japanisches-palais.skd.museum/programm/'
@@ -66,3 +68,9 @@ class JapanischesPalais(InputWebsiteScraper):
                     )]
 
         return events
+
+if(testmode):
+    devScraper = JapanischesPalais()
+    evs = devScraper.scrape_events(search_start_date = dt.datetime(2025,1,25), search_end_date = dt.datetime(2025,2,5))
+    for ev in evs:
+        print(ev.title)

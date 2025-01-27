@@ -5,6 +5,7 @@ import locale
 from bs4 import BeautifulSoup
 from definitions import InputWebsiteScraper, Event
 
+testmode = False
 class Kinokalender(InputWebsiteScraper):
     name = 'Kinokalender'
     url = 'http://kinokalender.com/wochenprogramm.html'
@@ -76,5 +77,9 @@ class Kinokalender(InputWebsiteScraper):
                 
             return events
     
-devScraper = Kinokalender()
-print(devScraper.scrape_events(search_start_date = dt.datetime(2024,7,12), search_end_date = dt.datetime(2024,12,31)))
+if(testmode):
+    devScraper = Kinokalender()
+    evs = devScraper.scrape_events(search_start_date = dt.datetime(2025,1,25), search_end_date = dt.datetime(2025,2,5))
+    for ev in evs:
+        print(ev.title)
+        print(ev.start_date)

@@ -1,3 +1,5 @@
+# This scraper will not look for location and eventtype which are given on sub pages.
+
 from tkinter import messagebox
 from bs4 import BeautifulSoup
 from definitions import InputWebsiteScraper, Event

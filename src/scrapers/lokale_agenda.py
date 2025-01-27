@@ -5,6 +5,7 @@ import datetime as dt
 import locale
 from dateutil.relativedelta import *
 
+testmode = False
 class LokaleAgenda(InputWebsiteScraper):
     name = 'Lokale Agenda'
     url = 'https://la-dresden.de/startseite/veranstaltungen/'
@@ -71,5 +72,8 @@ class LokaleAgenda(InputWebsiteScraper):
 
         return events
     
-#devScraper = LokaleAgenda()
-#devScraper.scrape_events(search_start_date = dt.datetime(2025,1,25), search_end_date = dt.datetime(2025,2,6))
+if(testmode):
+    devScraper = LokaleAgenda()
+    evs = devScraper.scrape_events(search_start_date = dt.datetime(2025,1,25), search_end_date = dt.datetime(2025,2,5))
+    for ev in evs:
+        print(ev.title)

@@ -1,9 +1,9 @@
-from src.definitions import InputWebsiteScraper, Event
-from bs4 import BeautifulSoup
-import requests
+from tkinter import messagebox
 import datetime as dt
-import locale   #to handle timezones and dates
-import re
+import requests
+import locale
+from bs4 import BeautifulSoup
+from definitions import InputWebsiteScraper, Event
 
 
 class SLUB(InputWebsiteScraper):
@@ -61,3 +61,6 @@ class SLUB(InputWebsiteScraper):
                             description_long = event_details
                         )]
         return events
+
+#devScraper = SLUB()
+#devScraper.scrape_events(search_start_date = dt.datetime(2025,1,25), search_end_date = dt.datetime(2025,2,5))

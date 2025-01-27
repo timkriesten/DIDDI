@@ -4,19 +4,22 @@
 # ...
 # Organiser not implemented (not provided)
 from tkinter import messagebox
-import datetime as dt
-import requests
-import locale
 from bs4 import BeautifulSoup
 from definitions import InputWebsiteScraper, Event
+import requests
+import datetime as dt
+import re
+import locale
+from dateutil.relativedelta import *
 
+testmode = False
 class TUDresden(InputWebsiteScraper):
     name = 'TU Dresden'
     url = 'https://tu-dresden.de/tu-dresden/veranstaltungskalender/veranstaltungskalender?b_start:int=0'
     urldev = r'dev_websites/Veranstaltungskalender — TU Dresden — TU Dresden.htm'
     ready = True
 
-    def scrape_events(self, search_start_date: dt.datetime, search_end_date: dt.datetime,eventsREC) -> list[Event]:
+    def scrape_events_2(self, search_start_date: dt.datetime, search_end_date: dt.datetime,eventsREC) -> list[Event]:
         #this scraper works recursive
         events: list[Event] = eventsREC
 
@@ -62,6 +65,12 @@ class TUDresden(InputWebsiteScraper):
             # Stop searching when enddate is reached
             if(yeardate>search_end_date):
                 break
+            
+                        #Eventtitle
+            event_title = event.find('h2',{'class': 'headline'}).text
+
+            #Url (here first since url contains date information at the end)
+            url = event.find('ul', {'class': 'linklist'}).find('a')['href']
 
             # time (multiple character replacements and splits of string are needed)
             time_str = event.find('div',{'class': 'columns small-12 medium-6 time'}).text.replace('\n','').replace(' ','').replace('Zeit','').replace('Uhr','')
@@ -88,12 +97,6 @@ class TUDresden(InputWebsiteScraper):
                 yeardatetime_end = None
                 yeardatetime = dt.datetime(yeardate.year,yeardate.month,yeardate.day,int(str_hh_mm[0]),int(str_hh_mm[1]))
 
-            #Eventtitle
-            event_title = event.find('h2',{'class': 'headline'}).text
-
-            #Url (here first since url contains date information at the end)
-            url = event.find('ul', {'class': 'linklist'}).find('a')['href']
-
             #Location
             loc_help = event.find('address')
             if loc_help != None: event_location = loc_help.text
@@ -116,14 +119,19 @@ class TUDresden(InputWebsiteScraper):
             try:
                 next_page_link = soup.find('li',{'class':'pagination-next'}).find('a')['href']
                 self.url = next_page_link
-                return devScraper.scrape_events(search_start_date = search_start_date, search_end_date = search_end_date,eventsREC=events)
+                return devScraper.scrape_events_2(search_start_date = search_start_date, search_end_date = search_end_date,eventsREC=events)
             except:
                 print('No further page.')
                 return events
         return events
 
-devScraper = TUDresden()
-allEvents = devScraper.scrape_events(search_start_date = dt.datetime(2024,7,14), search_end_date = dt.datetime(2025,12,19),eventsREC=[])
-print(len(allEvents))
-for ev in allEvents:
-    print(ev.start_date)
+    def scrape_events(self, search_start_date: dt.datetime, search_end_date: dt.datetime)-> list[Event]:
+        return self.scrape_events_2(search_start_date = search_start_date,search_end_date=search_end_date,eventsREC=[])
+    
+if(testmode):
+    devScraper = TUDresden()
+    evs = devScraper.scrape_events(search_start_date = dt.datetime(2025,1,25), search_end_date = dt.datetime(2025,3,5))
+    for ev in evs:
+        print(ev.title)
+        print(ev.start_date)
+        print('-----------------------------')

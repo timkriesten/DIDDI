@@ -5,6 +5,7 @@ import locale
 from bs4 import BeautifulSoup
 from definitions import InputWebsiteScraper, Event
 
+testmode = False
 class InternationaleGaerten(InputWebsiteScraper):
     name = 'Internationale Gaerten'
     url = 'https://internationale-gaerten-dresden.de/events'
@@ -41,7 +42,6 @@ class InternationaleGaerten(InputWebsiteScraper):
             Wednesday, 17.07.2024<br/>
             18:00
                         -
-
             19:30<br/>
             Internationale Gärten          </div>
             '''
@@ -86,14 +86,10 @@ class InternationaleGaerten(InputWebsiteScraper):
                 event_type = event_type,
                 description_long = event_details,
             )]
-            '''print('----------------------------')
-            print(event_title)
-            print(yeardatetime)
-            print(url)
-            print(event_location)
-            print(event_type)
-            print(event_details)'''
         return events
     
-#devScraper = InternationaleGaerten()
-#devScraper.scrape_events(search_start_date = dt.datetime(2024,7,12), search_end_date = dt.datetime(2024,12,31))
+if(testmode):
+    devScraper = InternationaleGaerten()
+    evs = devScraper.scrape_events(search_start_date = dt.datetime(2025,1,25), search_end_date = dt.datetime(2025,2,5))
+    for ev in evs:
+        print(ev.title)
