@@ -18,6 +18,7 @@ class DHMD(InputWebsiteScraper):
 
     def scrape_events(self, search_start_date: dt.datetime, search_end_date: dt.datetime) -> list[Event]:
         events: list[Event] = []
+        print('DHMD-Scraper started.')
         # distinguish between developer and ready mode
         if(self.ready):
             response =  requests.get(self.url)
@@ -27,12 +28,13 @@ class DHMD(InputWebsiteScraper):
                 webpage_content = file.read()
             soup = BeautifulSoup(webpage_content, "html.parser")
 
-        # find code part with event list
-        event_list = soup.find('div',{'class':r'event-list'})
+
         #find events
-        event_container = event_list.findAll('a',{'class':'event-item event-availability-element'})
+        event_container = soup.findAll('a',{'class':'event-item get-event-availability event-availability-element'})
+
         #set timezone
         locale.setlocale(locale.LC_TIME, 'de_DE')
+
         for event in event_container:
             #find date and time
             yeardatetime = dt.datetime.strptime(event.find('time')['datetime'], '%Y-%m-%d %H:%M')
@@ -73,3 +75,4 @@ if(testmode):
     evs = devScraper.scrape_events(search_start_date = dt.datetime(2025,1,25), search_end_date = dt.datetime(2025,2,5))
     for ev in evs:
         print(ev.title)
+        print(ev.start_date)
