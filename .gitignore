@@ -5,3 +5,4 @@ mypy.ini
 __pycache__/
 .*_cache
 Playground.*
+dev_websites/*

@@ -1,3 +1,4 @@
+# datetime is set to dt.datetime(1900,1,1) since there are multiple dates and hours where movies are shown
 from tkinter import messagebox
 import datetime as dt
 import requests
@@ -74,7 +75,7 @@ class Kinokalender(InputWebsiteScraper):
                     event_type = event_type,
                     description_long = event_details,
                 )]
-                
+            messagebox.showwarning(title='No date for this scarper.', message='Movies are played at several dates and times. Please check yourself.')    
             return events
     
 if(testmode):
