@@ -13,14 +13,17 @@ import locale
 from bs4 import BeautifulSoup
 from definitions import InputWebsiteScraper, Event
 
+testmode = False
 class Medienkulturzentrum(InputWebsiteScraper):
     name = 'Medienkulturzentrum'
     url = 'https://www.medienkulturzentrum.de/angebote/'
     urldev = r'dev_websites/Angebote - Medienkulturzentrum Dresden.htm'
     ready = True
 
-    def scrape_events(self, start_date: dt.datetime, search_end_date: dt.datetime) -> list[Event]:
-        events: list[Event] = []
+    def scrape_events_2(self, search_start_date: dt.datetime, search_end_date: dt.datetime,eventsREC) -> list[Event]:
+        #this scraper works recursive
+        events: list[Event] = eventsREC
+
         # distinguish between developer and ready mode
         if(self.ready):
             response =  requests.get(self.url)
@@ -38,23 +41,29 @@ class Medienkulturzentrum(InputWebsiteScraper):
         #set timezone
         locale.setlocale(locale.LC_TIME, 'de_DE')
         for event in event_container:
-            # year and date
-            try: yeardate = dt.datetime.strptime(event.find('small', {'class': 'date'}).text.replace('\t','').replace('\n',''), '%d.%m.%Y')
-            except:
-                messagebox.showwarning('>>> WARNING <<<', 'Years and dates in ' + self.name + '-Scraper may not be correct.')
-                break
+            date_str = event.find('small', {'class': 'date'}).text.replace('\t','').replace('\n','')
+            
+            #Eventtitle
+            event_title = event.find('a')['title']
+
+            # check for multiple or single day event, then extract date
+            # multiple day-events contain a 'bis'
+            if 'bis' in date_str:
+                #multiple day event
+                yeardate = dt.datetime.strptime(date_str.split('bis')[0].replace(' ',''), '%d.%m.%Y')
+                messagebox.showwarning('>>> Multiple day event <<<', event_title + 'May take place on deveral days.\n' + 'Please check website for other dates: ' + self.url)
+            else:
+                #single day event
+                yeardate = dt.datetime.strptime(date_str, '%d.%m.%Y')
 
             # Go to next date if start_date lays in past
-            if(yeardate<start_date):continue
+            if(yeardate<search_start_date):continue
 
             # Stop searching when enddate is reached
             if(yeardate>search_end_date):break
 
             #Url (here first since url contains date information at the end)
             url = event['data-href']
-
-            #Eventtitle
-            event_title = event.find('a')['title']
 
             #Description
             event_details = event.find('p').text
@@ -71,18 +80,11 @@ class Medienkulturzentrum(InputWebsiteScraper):
                     #try to extract year,date and starttime; format should look like this: 'Start: 09.01.2024, 17:00'
                     yeardatetime = dt.datetime.strptime(sub_info_container.find('div',{'class':'col_4c alpha no-bottomSpace'}).find('p').text.replace('\t','').split(' -')[0], 'Start: %d.%m.%Y, %H:%M')
                 except:
-                    messagebox.showwarning('>>> WARNING <<<', 'No time found in ' + self.name + '-Scraper. Year and date information only. Hour is set to 0.')
+                    messagebox.showwarning('>>> WARNING <<<', 'No time found for ' + event_title + '-Scraper. Year and date information only. Hour is set to 0.')
                     yeardatetime = yeardate
 
                 # Organiser/organisation
                 event_organiser = 'not implemented'
-#todo           # Find the organizer information
-                #help = sub_info_container.find('div', {'class': 'col_3 column'}) --> doesnt work for whatever reason
-                #siblings = organizer_heading.find_next_siblings('p')
-                #for i,item in enumerate(siblings):
-                #    item.a.decompose()
-                #    if i ==0: event_organiser = item.text
-                #    else: event_organiser = event_organiser + ', ' + item.text
 
                 #Location
                 event_location = sub_info_container.find('div',{'class':r'col_3 alpha'}).find('address').text.replace('\t','').replace('\n','')
@@ -104,7 +106,26 @@ class Medienkulturzentrum(InputWebsiteScraper):
                 organiser = event_organiser,
             )]
         
+         # check sub pages (here normaly max 3)
+        if(self.ready and yeardate<search_end_date):
+            try:
+                next_page_link = soup.find('a',{'class':'nextpostslink'})['href']
+                self.url = next_page_link
+                return devScraper.scrape_events_2(search_start_date = search_start_date, search_end_date = search_end_date,eventsREC=events)
+            except:
+                print('No further page.')
+                return events
         return events
     
-#devScraper = Medienkulturzentrum()
-#devScraper.scrape_events(start_date = dt.datetime(2023,12,16), search_end_date = dt.datetime(2024,1,9))
+    def scrape_events(self, search_start_date: dt.datetime, search_end_date: dt.datetime)-> list[Event]:
+        return self.scrape_events_2(search_start_date = search_start_date,search_end_date=search_end_date,eventsREC=[])
+    
+if(testmode):
+    devScraper = Medienkulturzentrum()
+    evs = devScraper.scrape_events(search_start_date = dt.datetime(2025,1,25), search_end_date = dt.datetime(2025,2,24))
+    for ev in evs:
+        print(ev.title)
+        print(ev.start_date)
+        print('---------------------------')
+        
+
