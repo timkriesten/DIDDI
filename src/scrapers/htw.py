@@ -69,7 +69,7 @@ class HTW(InputWebsiteScraper):
             event_type = 'not given'
             
             #Url (here first since url contains date information at the end)
-            url = event.find('a', {'class': 'htw_events-results__link'})['href']
+            url = r'https://www.htw-dresden.de' + event.find('a', {'class': 'htw_events-results__link'})['href']
 
             #Location
             event_location = 'no implemented - see  event-url'
