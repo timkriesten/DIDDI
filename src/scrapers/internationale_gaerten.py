@@ -29,7 +29,6 @@ class InternationaleGaerten(InputWebsiteScraper):
         #check if event_container is empty (no events in claender or scraping issue)
         if not event_container:
             messagebox.showwarning(title='Empty event list.', message='Eventlist is empty. No events in calendar or a scraping issue due to website change might be the issue.')
-            exit()
 
         #set timezone
         locale.setlocale(locale.LC_TIME, 'de_DE')
@@ -37,14 +36,7 @@ class InternationaleGaerten(InputWebsiteScraper):
         for event in event_container:
             #date and year
             div_list = event.findAll('div')
-            '''div_list[5] looks like:
-            <div>
-            Wednesday, 17.07.2024<br/>
-            18:00
-                        -
-            19:30<br/>
-            Internationale Gärten          </div>
-            '''
+
             #extract year and date
             try: yeardate = dt.datetime.strptime(div_list[5].text.split('\n')[1].split(', ')[1], '%d.%m.%Y')
             except:
@@ -86,6 +78,7 @@ class InternationaleGaerten(InputWebsiteScraper):
                 event_type = event_type,
                 description_long = event_details,
             )]
+
         return events
     
 if(testmode):
