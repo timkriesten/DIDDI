@@ -1,6 +1,26 @@
 # DIDDI
+## How to use with Docker
+1. Dockerfile must be called Dockerfile without file-extension.
+2. run:
+   ```
+   docker build -t my-jupyter-app .
+   ```
+in folder with Docker file.
+3. With Windows cmd run:
+   ```
+   docker run -p 8888:8888 -v %cd%:/app my-jupyter-app
+   ```
+sometimes double quotes are needed for this command run:
+   ```
+   docker run -p 8888:8888 -v "%cd%:/app" my-jupyter-app
+   ```
+4. Open with second/third link in cmd: "http://127.0.0.1:8888/...." or open "http://127.0.0.1:8888" directly in browser 
+5. Execute main.ipynb via double click
+6. Go to "Run" --> Run all cells
+7. Scroll down to table view and use the buttons to scrape Event infromation from each website
 
-## How to install
+
+## How to install (for VS Studio)
 
 1. Make sure you use Python 3.11.5 (other versions might also work, but this is tested)
 2. Generate a virtual environment, e.g. via the following command in a terminal
