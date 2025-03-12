@@ -34,25 +34,38 @@ class LokaleAgenda(InputWebsiteScraper):
             event_url = ev['href']
             # TITLE
             event_title = ev.find('p',{'class':'medium margin0 eventname'}).text
-            # following text format
+            # different time formats occur here
             #   Mi.. 13. Sep 2023, 19:00 Uhr | Deutsches Hygiene-Museum Dresden
             #   Fr.. 31. Mrz 2023 - So. 07. Jan 2024, 10:00 Uhr | Verkehrsmuseum Dresden
             #   therefore split  at '| '
             # In the past there was just one '.' behind the day --> Funktion to replace '..' with '.'
-            # Additionally, another '.' was added behind the month the new Dates look like:
-            # Mi.. 29. Jan. 2025 | Online
+            # Additionally, sometimes month are abriviated with a '.' and sometimes written out:
+            # 'DO.. 03.Apr. 2025, 10:00 Uhr | Leibniz-Insitut für ökologische Raumentwicklung (IÖR)'
+            # 'Mo. 17. März 2025, 14:00 Uhr | Online'
+            formats = [ '%a. %d. %b. %Y',  # Format with abbreviated month (e.g., 'Mi. 06. Mär. 2024')
+                        '%a. %d. %B %Y'    # Format with full month name (e.g., 'Mo. 17. März 2025')
+                        ]
             help = ev.find('p', {'class': 'medium condensed margin0 eventdate'}).text.replace('..','.').split('| ')
 
             # EVENTTIME
             # Check if the character '-' exists in the string using find() -->  means that event lasts more than one day
             if help[0].find('-') != -1:
                 event_time = help[0].split(', ')[1].replace(' Uhr', '')
-                event_start_date = dt.datetime.strptime(help[0].split(' -')[0], '%a. %d. %b. %Y')
-                event_end_date = dt.datetime.strptime(help[0].split('- ')[1].split(',')[0], '%a. %d. %b. %Y')
+                for fmt in formats:
+                    try:
+                        event_start_date = dt.datetime.strptime(help[0].split(' -')[0],fmt)
+                        event_end_date = dt.datetime.strptime(help[0].split('- ')[1].split(',')[0],fmt)
+                    except ValueError:
+                        continue
             else:
                 event_time = help[0].split(', ')[1].replace(' Uhr', '')
-                event_start_date = dt.datetime.strptime(help[0].split(', ')[0], '%a. %d. %b. %Y')
+                for fmt in formats:
+                    try:
+                        event_start_date = dt.datetime.strptime(help[0].split(', ')[0],fmt)
+                    except ValueError:
+                        continue
                 event_end_date =None
+            
             # Go to next date if start_date lays in past
             if(event_start_date<search_start_date):continue            
             #stop searching when enddate is reached
