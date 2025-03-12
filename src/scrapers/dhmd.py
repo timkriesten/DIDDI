@@ -21,7 +21,11 @@ class DHMD(InputWebsiteScraper):
         print('DHMD-Scraper started.')
         # distinguish between developer and ready mode
         if(self.ready):
-            response =  requests.get(self.url)
+            try:
+                response =  requests.get(self.url)
+            except:
+                messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+                return events
             soup = BeautifulSoup(response.text, "html.parser")  #response.text or response.content  
         else:
             with open(self.urldev, 'r', encoding='utf-8') as file:

@@ -15,7 +15,11 @@ class SLUB(InputWebsiteScraper):
         print(self.name, 'Scraper started.')
         events: list[Event] = []
         # get website
-        response =  requests.get(self.url)
+        try:
+            response =  requests.get(self.url)
+        except:
+            messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+            return events
         #website response to text (response.text) or content (response.content)  
         soup = BeautifulSoup(response.text, "html.parser")
 

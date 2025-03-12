@@ -1,3 +1,4 @@
+from tkinter import messagebox
 from bs4 import BeautifulSoup
 from definitions import InputWebsiteScraper, Event
 import requests
@@ -17,7 +18,11 @@ class JapanischesPalais(InputWebsiteScraper):
         events: list[Event] = []
         # TODO Palais allows appoitmentdowload in iCalender format --> useful??
         # Website ist identisch zu denen der anderen Museen aufgebaut basieren auf selbem Kalender: https://www.skd.museum/programm
-        response =  requests.get(self.url)
+        try:
+            response =  requests.get(self.url)
+        except:
+            messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+            return events
         soup = BeautifulSoup(response.text, "html.parser")  #response.text or response.content  
         # "skd-calendar-events-target" contains all events of a day 
         elements = soup.findAll("li", {"class": r"skd-calendar-events-target"}) #todo change to findAll

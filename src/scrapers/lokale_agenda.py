@@ -1,3 +1,4 @@
+from tkinter import messagebox
 from bs4 import BeautifulSoup
 from definitions import InputWebsiteScraper, Event
 import requests
@@ -17,8 +18,12 @@ class LokaleAgenda(InputWebsiteScraper):
         events: list[Event] = []
                 
         #website response to text (response.text) or content (response.content)
-        res =  requests.get(self.url)  
-        soup = BeautifulSoup(res.text, "html.parser")
+        try:
+                response =  requests.get(self.url)
+        except:
+            messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+            return events
+        soup = BeautifulSoup(response.text, "html.parser")
 
         #set timezone
         locale.setlocale(locale.LC_TIME, 'de_DE')
