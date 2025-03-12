@@ -82,8 +82,10 @@ class StuRa(InputWebsiteScraper):
                 event_type='not searched'
 
                 #Location
-                event_location = ev.find('div',{'class': 'views-field-field-ort-value'}).find('span',{'class', 'field-content'}).text
-                
+                try:
+                    event_location = ev.find('div',{'class': 'views-field-field-ort-value'}).find('span',{'class', 'field-content'}).text
+                except:
+                    event_location = 'not given/found'
                 #Description
                 event_details = 'not searched'#ev.find('p').text if ev.find('p') else 'No description.'
 
@@ -95,7 +97,7 @@ class StuRa(InputWebsiteScraper):
                 url = ev.find('a')['href']
                 events += [Event(
                     title = event_title,
-                    start_date = event_datetime,
+                    start_date = start_datetime,
                     url = self.url,
                     location = event_location,
                     event_type = event_type,
@@ -111,7 +113,7 @@ class StuRa(InputWebsiteScraper):
 
 if(testmode):
     devScraper = StuRa()
-    evs = devScraper.scrape_events(search_start_date = dt.datetime(2025,1,25), search_end_date = dt.datetime(2025,2,5))
+    evs = devScraper.scrape_events(search_start_date = dt.datetime(2025,3,12), search_end_date = dt.datetime(2025,3,20))
     for ev in evs:
         print(ev.title)
         print(ev.start_date)
