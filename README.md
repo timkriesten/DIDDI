@@ -3,16 +3,16 @@
 1. Dockerfile must be called Dockerfile without file-extension.
 2. run:
    ```
-   docker build -t my-jupyter-app .
+   docker build -t my-py-app .
    ```
 in folder with Docker file.
 3. With Windows cmd run:
    ```
-   docker run -p 8888:8888 -v %cd%:/app my-jupyter-app
+   docker run -p 8888:8888 -v %cd%:/app my-py-app
    ```
 sometimes double quotes are needed for this command run:
    ```
-   docker run -p 8888:8888 -v "%cd%:/app" my-jupyter-app
+   docker run -p 8888:8888 -v "%cd%:/app" my-py-app
    ```
 4. Open with second/third link in cmd: "http://127.0.0.1:8888/...." or open "http://127.0.0.1:8888" directly in browser 
 5. Execute main.ipynb via double click

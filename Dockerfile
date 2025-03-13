@@ -1,16 +1,14 @@
-# Use an official Jupyter Notebook image
-FROM jupyter/minimal-notebook
+FROM python:3.10
 
-# Set working directory
+# Install Jupyter and dependencies
+RUN pip install --no-cache-dir jupyter notebook
+
+# Set up the working directory
 WORKDIR /app
-
-# Copy your requirements file into the container
-COPY requirements.txt ./
-
-# Install dependencies
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy all files from the repo
+# Copy project files
 COPY . .
 
 # Set PYTHONPATH
@@ -19,5 +17,5 @@ ENV PYTHONPATH=/app/src
 # Expose Jupyter Notebook port
 EXPOSE 8888
 
-# Run Jupyter Notebook
+# Start Jupyter Notebook
 CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
