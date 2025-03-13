@@ -5,8 +5,7 @@ import locale
 from bs4 import BeautifulSoup
 from definitions import InputWebsiteScraper, Event
 
-
-testmode = True
+testmode = False
 
 class SLUB(InputWebsiteScraper):
     name = "SLUB"
