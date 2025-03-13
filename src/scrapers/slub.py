@@ -6,6 +6,8 @@ from bs4 import BeautifulSoup
 from definitions import InputWebsiteScraper, Event
 
 
+testmode = True
+
 class SLUB(InputWebsiteScraper):
     name = "SLUB"
     url = "https://www.slub-dresden.de/besuchen/veranstaltungen"
@@ -24,7 +26,7 @@ class SLUB(InputWebsiteScraper):
         soup = BeautifulSoup(response.text, "html.parser")
 
         # "skd-calendar-events-target" contains all events of a day 
-        elements = soup.findAll("div", {"class": r"event-container"})
+        elements = soup.findAll("article", {"class": r"event-container"})
 
         #In each element (contains all events on a specific day) search for events
         #set timezone
@@ -49,11 +51,6 @@ class SLUB(InputWebsiteScraper):
             event_details = ''#TODO extract and add details
             # print and replace spaces, tabs and newline chars in event_type
             datetime_string = current_date.strftime('%Y-%m-%d')+' ' +event_time
-            # print("{:<16}".format('Datum und Zeit: '),datetime_string)
-            # print("{:<16}".format('Titel: '),re.sub(r'\s+',' ',event_title.lstrip()))
-            # print("{:<16}".format('Typ: '),re.sub(r'\s+',' ',event_type))
-            # print("{:<16}".format('Ort: '),re.sub(r'\s+',' ',event_location.lstrip()))
-            # print("{:<16}".format('Beschreibung:'),'\n',event_details)
 
             # add event to event list
             events += [Event(
@@ -66,5 +63,9 @@ class SLUB(InputWebsiteScraper):
                         )]
         return events
 
-#devScraper = SLUB()
-#devScraper.scrape_events(search_start_date = dt.datetime(2025,1,25), search_end_date = dt.datetime(2025,2,5))
+if(testmode):
+    devScraper = SLUB()
+    evs = devScraper.scrape_events(search_start_date = dt.datetime(2025,3,12), search_end_date = dt.datetime(2025,3,20))
+    for ev in evs:
+        print(ev.title)
+        print(ev.start_date)
