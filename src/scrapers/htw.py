@@ -9,7 +9,7 @@ import re
 import locale
 from dateutil.relativedelta import *
 
-testmode = False
+testmode = True
 class HTW(InputWebsiteScraper):
     name = 'HTW Dresden'
     url = 'https://www.htw-dresden.de/hochschule/aktuelles/veranstaltungskalender'
@@ -17,7 +17,7 @@ class HTW(InputWebsiteScraper):
     ready = True
 
     def scrape_events(self, search_start_date: dt.datetime, search_end_date: dt.datetime) -> list[Event]:
-        # TODO: write scraping script
+        #Initialise empty Event list
         events: list[Event] = []
 
         # distinguish between developer and ready mode
@@ -54,17 +54,45 @@ class HTW(InputWebsiteScraper):
             # Multiple day event look like: 31.01.2025 14:00 Uhr - 01.02.2025 18:00 Uhr
             # Single day event looks like: 28.01.2025 | 17:00  - 18:00 Uhr
 
-            date_time_str = event.find('span',{'class':'htw_events-results__date'}).text.replace('\n','').replace('\t','').replace('Uhr','')
-            # check for '|' in date_time_string --> if true --> single day event
-            if '|' in date_time_str:
-                yeardatetime = dt.datetime.strptime(date_time_str.replace(' ', '').split('-')[0],'%d.%m.%Y | %H:%M ')       
-            # Multiple day event --> split at '-'
+            # removeing tabs, linebreaks, leading and trailing spaces and 'Uhr'
+            date_time_str = event.find('span',{'class':'htw_events-results__date'}).text.replace('\n','').replace('\t','').replace('Uhr','').lstrip().rstrip()
+            
+            #define possible date formats
+            formats = [ '%d.%m.%Y %H:%M',       # Format like 13.03.2025 10:00 Uhr -  20.03.2025 13:15 Uhr
+                        '%d.%m.%Y | %H:%M',     # Format like 14.03.2025 |  12:40  -  13:00 Uhr
+                        '%d.%m.%Y / %H:%M',     # format like 14.03.2025 / 12:33
+                        '%H:%M'                 # For single 13:00 
+                        ]
+            # check for '-' in date_time_string --> if true --> there is a from to date (one day or single day)
+            if '-' in date_time_str:
+                help = date_time_str.split(' - ')
+                print(help)
+                for fmt in formats:
+                    try:
+                        yeardatetime = dt.datetime.strptime(help[0],fmt)
+                    except ValueError:
+                        continue
+                for fmt in formats:
+                    try:
+                        event_end_date = dt.datetime.strptime(help[1],fmt)
+                    except ValueError:
+                        continue    
+            # Just one date to handle
             else:
-                print(date_time_str.split('-')[0].strip())
-                yeardatetime = dt.datetime.strptime(date_time_str.split('-')[0].strip(), '%d.%m.%Y %H:%M')
+                for fmt in formats:
+                    try:
+                        yeardatetime = dt.datetime.strptime(date_time_str,fmt) 
+                    except ValueError:
+                        continue
 
+            try:
+                yeardatetime
+            except:
+                messagebox.showwarning('>>> No Date<<<', 'No date found for ' + event_title + '. scraper stopped. Please check date formats.' + self.url)
+                break
             # Go to next date if start_date lays in past
             if(yeardatetime<search_start_date):continue
+            
             # Stop searching when enddate is reached
             if(yeardatetime>search_end_date):
                 break
@@ -85,6 +113,7 @@ class HTW(InputWebsiteScraper):
             events += [Event(
                 title = event_title,
                 start_date = yeardatetime,
+                end_date = event_end_date,
                 url = url,
                 location = event_location,
                 event_type = event_type,
