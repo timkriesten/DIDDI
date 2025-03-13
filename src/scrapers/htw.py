@@ -9,7 +9,7 @@ import re
 import locale
 from dateutil.relativedelta import *
 
-testmode = True
+testmode = False
 class HTW(InputWebsiteScraper):
     name = 'HTW Dresden'
     url = 'https://www.htw-dresden.de/hochschule/aktuelles/veranstaltungskalender'
@@ -65,8 +65,7 @@ class HTW(InputWebsiteScraper):
                         ]
             # check for '-' in date_time_string --> if true --> there is a from to date (one day or single day)
             if '-' in date_time_str:
-                help = date_time_str.split(' - ')
-                print(help)
+                help = date_time_str.split('-')
                 for fmt in formats:
                     try:
                         yeardatetime = dt.datetime.strptime(help[0],fmt)
