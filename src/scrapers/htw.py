@@ -65,7 +65,9 @@ class HTW(InputWebsiteScraper):
                         ]
             # check for '-' in date_time_string --> if true --> there is a from to date (one day or single day)
             if '-' in date_time_str:
-                help = date_time_str.split('-')
+                # clean multiple spaces
+                date_time_str = re.sub(r'\s+',' ',date_time_str)
+                help = date_time_str.split(' - ')
                 for fmt in formats:
                     try:
                         yeardatetime = dt.datetime.strptime(help[0],fmt)
@@ -83,11 +85,11 @@ class HTW(InputWebsiteScraper):
                         yeardatetime = dt.datetime.strptime(date_time_str,fmt) 
                     except ValueError:
                         continue
-
+            
             try:
                 yeardatetime
             except:
-                messagebox.showwarning('>>> No Date<<<', 'No date found for ' + event_title + '. scraper stopped. Please check date formats.' + self.url)
+                messagebox.showwarning('>>> No Date<<<', 'No date found for ' + event_title + '. scraper stopped.\nPlease check date format:' + date_time_str)
                 break
             # Go to next date if start_date lays in past
             if(yeardatetime<search_start_date):continue
@@ -122,7 +124,7 @@ class HTW(InputWebsiteScraper):
     
 if(testmode):
     devScraper = HTW()
-    evs = devScraper.scrape_events(search_start_date = dt.datetime(2025,1,25), search_end_date = dt.datetime(2025,3,5))
+    evs = devScraper.scrape_events(search_start_date = dt.datetime(2025,3,13), search_end_date = dt.datetime(2025,3,20))
     for ev in evs:
         print(ev.title)
         print(ev.start_date)
