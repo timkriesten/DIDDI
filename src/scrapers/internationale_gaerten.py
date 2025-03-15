@@ -38,7 +38,7 @@ class InternationaleGaerten(InputWebsiteScraper):
             else:messagebox.showwarning(title='Empty event list.', message='Eventlist is empty. No events in calendar or a scraping issue due to website change might be the issue.')
 
         #set timezone
-        locale.setlocale(locale.LC_TIME, 'de_DE')
+        locale.setlocale(locale.LC_TIME, settings.global_locale)
 
         for event in event_container:
             #date and year

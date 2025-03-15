@@ -45,7 +45,7 @@ class Medienkulturzentrum(InputWebsiteScraper):
         event_container = event_list.findAll('article')
 
         #set timezone
-        locale.setlocale(locale.LC_TIME, 'de_DE')
+        locale.setlocale(locale.LC_TIME, settings.global_locale)
         for event in event_container:
             date_str = event.find('small', {'class': 'date'}).text.replace('\t','').replace('\n','')
             

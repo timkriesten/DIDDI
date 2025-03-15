@@ -28,7 +28,7 @@ class LokaleAgenda(InputWebsiteScraper):
         soup = BeautifulSoup(response.text, "html.parser")
 
         #set timezone
-        locale.setlocale(locale.LC_TIME, 'de_DE')
+        locale.setlocale(locale.LC_TIME, settings.global_locale)
         # find events
         evs = soup.find('div',{'id':'grid_kalender_container'}).findAll('a')
         for ev in evs:

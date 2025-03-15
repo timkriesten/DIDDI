@@ -57,7 +57,7 @@ class StuRa(InputWebsiteScraper):
         # find container events on date xy
         date_container = soup.find("div", {"id": r"content-inner"}).findAll('div',{'class': 'item-list'})
         #set timezone
-        locale.setlocale(locale.LC_TIME, 'de_DE')
+        locale.setlocale(locale.LC_TIME, settings.global_locale)
         for container in date_container:
             # Date
             event_date = dt.datetime.strptime(container.find('span',{'class': 'date-display-single'}).text, '%A, %d. %B %Y') 

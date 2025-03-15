@@ -31,7 +31,7 @@ class SLUB(InputWebsiteScraper):
 
         #In each element (contains all events on a specific day) search for events
         #set timezone
-        locale.setlocale(locale.LC_TIME, 'de_DE')
+        locale.setlocale(locale.LC_TIME, settings.global_locale)
         for el in elements:
             #date and time
             my = dt.datetime.strptime(el.find('span',{'class': 'month-year'}).text,'%B, %Y')

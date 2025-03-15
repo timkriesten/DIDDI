@@ -51,7 +51,7 @@ class TUDresden(InputWebsiteScraper):
             exit()
 
         #set timezone
-        locale.setlocale(locale.LC_TIME, 'de_DE')
+        locale.setlocale(locale.LC_TIME, 'de_DE.UTF-8')
 
         for event in event_container:
             #date and type

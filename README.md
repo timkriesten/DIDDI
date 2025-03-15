@@ -1,5 +1,6 @@
 # DIDDI
 ## How to use with Docker
+0. Set variables in settings properly for docker usage
 1. Dockerfile must be called Dockerfile without file-extension.
 2. run:
    ```

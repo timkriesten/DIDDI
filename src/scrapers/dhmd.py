@@ -39,7 +39,7 @@ class DHMD(InputWebsiteScraper):
         event_container = soup.findAll('a',{'class':'event-item get-event-availability event-availability-element'})
 
         #set timezone
-        locale.setlocale(locale.LC_TIME, 'de_DE')
+        locale.setlocale(locale.LC_TIME, settings.global_locale)
 
         for event in event_container:
             #find date and time

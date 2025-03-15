@@ -10,7 +10,7 @@ import locale
 from dateutil.relativedelta import *
 import settings
 
-testmode = True
+testmode = False
 class HTW(InputWebsiteScraper):
     name = 'HTW Dresden'
     url = 'https://www.htw-dresden.de/hochschule/aktuelles/veranstaltungskalender'
@@ -44,7 +44,7 @@ class HTW(InputWebsiteScraper):
             exit()  
 
         #set timezone
-        locale.setlocale(locale.LC_TIME, 'de_DE')
+        locale.setlocale(locale.LC_TIME, settings.global_locale)
 
         #loop over events in event_container
         for event in event_container:
@@ -67,6 +67,7 @@ class HTW(InputWebsiteScraper):
                         '%H:%M'                 # For single 13:00 
                         ]
             # check for '-' in date_time_string --> if true --> there is a from to date (one day or single day)
+            event_end_date = None
             if '-' in date_time_str:
                 # clean multiple spaces
                 date_time_str = re.sub(r'\s+',' ',date_time_str)
@@ -88,7 +89,6 @@ class HTW(InputWebsiteScraper):
                         yeardatetime = dt.datetime.strptime(date_time_str,fmt) 
                     except ValueError:
                         continue
-            
             try:
                 yeardatetime
             except:
