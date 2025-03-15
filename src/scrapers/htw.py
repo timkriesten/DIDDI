@@ -8,8 +8,9 @@ import datetime as dt
 import re
 import locale
 from dateutil.relativedelta import *
+import settings
 
-testmode = False
+testmode = True
 class HTW(InputWebsiteScraper):
     name = 'HTW Dresden'
     url = 'https://www.htw-dresden.de/hochschule/aktuelles/veranstaltungskalender'
@@ -25,7 +26,8 @@ class HTW(InputWebsiteScraper):
             try:
                 response =  requests.get(self.url)
             except:
-                messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+                if(settings.global_dockermode):print('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+                else: messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
                 return events
             soup = BeautifulSoup(response.text, "html.parser")  #response.text or response.content  
         else:
@@ -37,7 +39,8 @@ class HTW(InputWebsiteScraper):
         try:
             event_container = soup.findAll('li',{'class': 'htw_events-results__item'})
         except:
-            messagebox.showwarning(title='Empty event list.', message='Eventlist is empty. No events in calendar or a scraping issue due to website change might be the issue.')
+            if(settings.global_dockermode):print('Empty event list.','Eventlist is empty. No events in calendar or a scraping issue due to website change might be the issue.')
+            else:messagebox.showwarning(title='Empty event list.', message='Eventlist is empty. No events in calendar or a scraping issue due to website change might be the issue.')
             exit()  
 
         #set timezone
@@ -89,7 +92,8 @@ class HTW(InputWebsiteScraper):
             try:
                 yeardatetime
             except:
-                messagebox.showwarning('>>> No Date<<<', 'No date found for ' + event_title + '. scraper stopped.\nPlease check date format:' + date_time_str)
+                if(settings.global_dockermode):print('>>> No Date<<<', 'No date found for ' + event_title + '. scraper stopped.\nPlease check date format:' + date_time_str)
+                else:messagebox.showwarning('>>> No Date<<<', 'No date found for ' + event_title + '. scraper stopped.\nPlease check date format:' + date_time_str)
                 break
             # Go to next date if start_date lays in past
             if(yeardatetime<search_start_date):continue

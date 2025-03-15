@@ -4,6 +4,7 @@ import requests
 import locale
 from bs4 import BeautifulSoup
 from definitions import InputWebsiteScraper, Event
+import settings
 
 testmode = False
 class InternationaleGaerten(InputWebsiteScraper):
@@ -19,7 +20,8 @@ class InternationaleGaerten(InputWebsiteScraper):
             try:
                 response =  requests.get(self.url)
             except:
-                messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+                if(settings.global_dockermode):print('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+                else: messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
                 return events
             soup = BeautifulSoup(response.text, "html.parser")  #response.text or response.content  
         else:
@@ -32,7 +34,8 @@ class InternationaleGaerten(InputWebsiteScraper):
 
         #check if event_container is empty (no events in claender or scraping issue)
         if not event_container:
-            messagebox.showwarning(title='Empty event list.', message='Eventlist is empty. No events in calendar or a scraping issue due to website change might be the issue.')
+            if(settings.global_dockermode):print('Empty event list.','Eventlist is empty. No events in calendar or a scraping issue due to website change might be the issue.')
+            else:messagebox.showwarning(title='Empty event list.', message='Eventlist is empty. No events in calendar or a scraping issue due to website change might be the issue.')
 
         #set timezone
         locale.setlocale(locale.LC_TIME, 'de_DE')
@@ -44,7 +47,8 @@ class InternationaleGaerten(InputWebsiteScraper):
             #extract year and date
             try: yeardate = dt.datetime.strptime(div_list[5].text.split('\n')[1].split(', ')[1], '%d.%m.%Y')
             except:
-                messagebox.showwarning('>>> WARNING <<<', 'Years and dates in ' + self.name + '-Scraper may not be corrected.')
+                if(settings.global_dockermode):print('>>> WARNING <<<', 'Years and dates in ' + self.name + '-Scraper may not be corrected.')
+                else:messagebox.showwarning('>>> WARNING <<<', 'Years and dates in ' + self.name + '-Scraper may not be corrected.')
                 break
 
             # Go to next date if start_date lays in past

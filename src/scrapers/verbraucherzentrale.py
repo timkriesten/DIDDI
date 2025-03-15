@@ -4,6 +4,7 @@ import requests
 import locale
 from bs4 import BeautifulSoup
 from definitions import InputWebsiteScraper, Event
+import settings
 
 testmode = False
 class Verbraucherzentrale(InputWebsiteScraper):
@@ -14,12 +15,14 @@ class Verbraucherzentrale(InputWebsiteScraper):
 
     def scrape_events(self, search_start_date: dt.datetime, search_end_date: dt.datetime) -> list[Event]:
         events: list[Event] = []
+        print('Scraper Started')
         # distinguish between developer and ready mode
         if(self.ready):
             try:
                 response =  requests.get(self.url)
             except:
-                messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+                if(settings.global_dockermode):print('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+                else: messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
                 return events
             soup = BeautifulSoup(response.text, "html.parser")  #response.text or response.content  
         else:
@@ -75,12 +78,11 @@ class Verbraucherzentrale(InputWebsiteScraper):
                 description_long = event_details,
                 online= mOnline
             )]
-
         return events
 
 if(testmode):
     devScraper = Verbraucherzentrale()
-    evs = devScraper.scrape_events(search_start_date = dt.datetime(2025,1,25), search_end_date = dt.datetime(2025,2,5))
+    evs = devScraper.scrape_events(search_start_date = dt.datetime(2025,3,14), search_end_date = dt.datetime(2025,3,25))
     for ev in evs:
         print(ev.title)
         print(ev.start_date)

@@ -5,6 +5,7 @@ import requests
 import datetime as dt
 import locale
 from dateutil.relativedelta import *
+import settings
 
 testmode = False
 class LokaleAgenda(InputWebsiteScraper):
@@ -19,9 +20,10 @@ class LokaleAgenda(InputWebsiteScraper):
                 
         #website response to text (response.text) or content (response.content)
         try:
-                response =  requests.get(self.url)
+            response =  requests.get(self.url)
         except:
-            messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+            if(settings.global_dockermode):print('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+            else: messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
             return events
         soup = BeautifulSoup(response.text, "html.parser")
 

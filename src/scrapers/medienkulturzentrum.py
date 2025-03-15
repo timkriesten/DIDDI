@@ -12,6 +12,7 @@ import requests
 import locale
 from bs4 import BeautifulSoup
 from definitions import InputWebsiteScraper, Event
+import settings
 
 testmode = False
 class Medienkulturzentrum(InputWebsiteScraper):
@@ -29,7 +30,8 @@ class Medienkulturzentrum(InputWebsiteScraper):
             try:
                 response =  requests.get(self.url)
             except:
-                messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+                if(settings.global_dockermode):print('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+                else: messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
                 return eventsREC
             soup = BeautifulSoup(response.text, "html.parser")  #response.text or response.content  
         else:
@@ -55,7 +57,8 @@ class Medienkulturzentrum(InputWebsiteScraper):
             if 'bis' in date_str:
                 #multiple day event
                 yeardate = dt.datetime.strptime(date_str.split('bis')[0].replace(' ',''), '%d.%m.%Y')
-                messagebox.showwarning('>>> Multiple day event <<<', event_title + 'May take place on deveral days.\n' + 'Please check website for other dates: ' + self.url)
+                if(settings.global_dockermode):print('>>> Multiple day event <<<', event_title + 'May take place on deveral days.\n' + 'Please check website for other dates: ' + self.url)
+                else: messagebox.showwarning('>>> Multiple day event <<<', event_title + 'May take place on deveral days.\n' + 'Please check website for other dates: ' + self.url)
             else:
                 #single day event
                 yeardate = dt.datetime.strptime(date_str, '%d.%m.%Y')
@@ -84,7 +87,8 @@ class Medienkulturzentrum(InputWebsiteScraper):
                     #try to extract year,date and starttime; format should look like this: 'Start: 09.01.2024, 17:00'
                     yeardatetime = dt.datetime.strptime(sub_info_container.find('div',{'class':'col_4c alpha no-bottomSpace'}).find('p').text.replace('\t','').split(' -')[0], 'Start: %d.%m.%Y, %H:%M')
                 except:
-                    messagebox.showwarning('>>> WARNING <<<', 'No time found for ' + event_title + '-Scraper. Year and date information only. Hour is set to 0.')
+                    if(settings.global_dockermode):print('>>> WARNING <<<', 'No time found for ' + event_title + '-Scraper. Year and date information only. Hour is set to 0.')
+                    else:messagebox.showwarning('>>> WARNING <<<', 'No time found for ' + event_title + '-Scraper. Year and date information only. Hour is set to 0.')
                     yeardatetime = yeardate
 
                 # Organiser/organisation

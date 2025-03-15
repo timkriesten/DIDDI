@@ -6,6 +6,7 @@ import datetime as dt
 import re
 import locale
 from dateutil.relativedelta import *
+import settings
 
 # when calling this scraper set 
 #    eventsRECnext=[]
@@ -44,7 +45,8 @@ class StuRa(InputWebsiteScraper):
             try:
                 response =  requests.get(url_help)
             except:
-                messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+                if(settings.global_dockermode):print('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+                else: messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
                 return eventsREC
             soup = BeautifulSoup(response.text, "html.parser")  #response.text or response.content   
         else:

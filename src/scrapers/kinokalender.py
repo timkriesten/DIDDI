@@ -5,6 +5,7 @@ import requests
 import locale
 from bs4 import BeautifulSoup
 from definitions import InputWebsiteScraper, Event
+import settings
 
 testmode = False
 class Kinokalender(InputWebsiteScraper):
@@ -20,7 +21,8 @@ class Kinokalender(InputWebsiteScraper):
                 try:
                     response =  requests.get(self.url)
                 except:
-                    messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+                    if(settings.global_dockermode):print('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+                    else: messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
                     return events
                 soup = BeautifulSoup(response.text, "html.parser")  #response.text or response.content  
             else:
@@ -33,7 +35,8 @@ class Kinokalender(InputWebsiteScraper):
 
             #check if event_container is empty (no events in claender or scraping issue)
             if not event_container:
-                messagebox.showwarning(title='Empty event list.', message='Eventlist is empty. No events in calendar or a scraping issue due to website change might be the issue.')
+                if(settings.global_dockermode):print('>>> Empty event list. <<<', 'Eventlist is empty. No events in calendar or a scraping issue due to website change might be the issue.')
+                else:messagebox.showwarning(title='Empty event list.', message='Eventlist is empty. No events in calendar or a scraping issue due to website change might be the issue.')
                 exit()
 
             for event in event_container:
@@ -79,12 +82,13 @@ class Kinokalender(InputWebsiteScraper):
                     event_type = event_type,
                     description_long = event_details,
                 )]
-            messagebox.showwarning(title='No date for this scarper.', message='Movies are played at several dates and times. Please check yourself.')    
+            if(settings.global_dockermode):print('>>> No date for this scarper. <<<','Movies are played at several dates and times. Please check yourself.')
+            else:messagebox.showwarning(title='No date for this scarper.', message='Movies are played at several dates and times. Please check yourself.')    
             return events
     
 if(testmode):
     devScraper = Kinokalender()
-    evs = devScraper.scrape_events(search_start_date = dt.datetime(2025,1,25), search_end_date = dt.datetime(2025,2,5))
+    evs = devScraper.scrape_events(search_start_date = dt.datetime(2025,3,14), search_end_date = dt.datetime(2025,3,25))
     for ev in evs:
         print(ev.title)
         print(ev.start_date)

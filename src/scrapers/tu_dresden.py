@@ -11,6 +11,7 @@ import datetime as dt
 import re
 import locale
 from dateutil.relativedelta import *
+import settings
 
 testmode = False
 class TUDresden(InputWebsiteScraper):
@@ -28,7 +29,8 @@ class TUDresden(InputWebsiteScraper):
             try:
                 response =  requests.get(self.url)
             except:
-                messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+                if(settings.global_dockermode):print('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+                else: messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
                 return eventsREC
             soup = BeautifulSoup(response.text, "html.parser")  #response.text or response.content  
         else:
@@ -44,7 +46,8 @@ class TUDresden(InputWebsiteScraper):
 
         #check if event_container is empty (no events in claender or scraping issue)
         if not event_container:
-            messagebox.showwarning(title='Empty event list.', message='Eventlist is empty. No events in calendar or a scraping issue due to website change might be the issue.')
+            if(settings.global_dockermode):print('>>> Empty event list. <<<', 'Eventlist is empty. No events in calendar or a scraping issue due to website change might be the issue.')
+            else: messagebox.showwarning(title='Empty event list.', message='Eventlist is empty. No events in calendar or a scraping issue due to website change might be the issue.')
             exit()
 
         #set timezone
@@ -62,7 +65,8 @@ class TUDresden(InputWebsiteScraper):
                 else:
                     yeardate = dt.datetime.strptime(date_type[0], '%d.%m.%Y')
             except:
-                messagebox.showwarning('>>> WARNING <<<', 'Years and dates in ' + self.name + '-Scraper may not be correct.')
+                if(settings.global_dockermode):print('>>> WARNING <<<', 'Years and dates in ' + self.name + '-Scraper may not be correct.')
+                else:messagebox.showwarning('>>> WARNING <<<', 'Years and dates in ' + self.name + '-Scraper may not be correct.')
                 break
             # Go to next date if start_date lays in past
             if(yeardate<search_start_date):continue
@@ -85,7 +89,8 @@ class TUDresden(InputWebsiteScraper):
                 multiple_days = True
                 str_hh_mm = time_str.split(',')[1].split('-')[0].split(':')
                 str_hh_mm_end = time_str.split(',')[2].split(':')
-                messagebox.showwarning(title='Warning.', message='This event might run on several days. Please check the website.\n' +'Event: ' +event_title + '\n Website: ' + url)
+                if(settings.global_dockermode):print('>>> Warning. <<<', 'This event might run on several days. Please check the website.\n' +'Event: ' +event_title + '\n Website: ' + url)
+                else:messagebox.showwarning(title='Warning.', message='This event might run on several days. Please check the website.\n' +'Event: ' +event_title + '\n Website: ' + url)
             if('Ganztägig'in time_str):
                 yeardatetime = dt.datetime(yeardate.year,yeardate.month,yeardate.day)
                 yeardatetime_end = None

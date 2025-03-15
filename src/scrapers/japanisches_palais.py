@@ -5,6 +5,7 @@ import requests
 import datetime as dt
 import locale
 from dateutil.relativedelta import *
+import settings
 
 testmode = False
 class JapanischesPalais(InputWebsiteScraper):
@@ -14,14 +15,14 @@ class JapanischesPalais(InputWebsiteScraper):
 
     def scrape_events(self, search_start_date: dt.datetime, search_end_date: dt.datetime)-> list[Event]:
         print(self.name, 'Scraper started.')
-        '''Example Scraper Class Implementation'''
         events: list[Event] = []
         # TODO Palais allows appoitmentdowload in iCalender format --> useful??
         # Website ist identisch zu denen der anderen Museen aufgebaut basieren auf selbem Kalender: https://www.skd.museum/programm
         try:
             response =  requests.get(self.url)
         except:
-            messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+            if(settings.global_dockermode):print('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
+            else: messagebox.showwarning('>>> No response from Website <<<', 'No response from Website. Please check website: ' + self.url)
             return events
         soup = BeautifulSoup(response.text, "html.parser")  #response.text or response.content  
         # "skd-calendar-events-target" contains all events of a day 
@@ -56,13 +57,7 @@ class JapanischesPalais(InputWebsiteScraper):
                         event_details = event_details.replace(w,'')
 
                     datetime_string = event_date.strftime('%Y-%m-%d')+' ' +event_time.lstrip().rstrip()
-                    #print and replace spaces, tabs and newline chars in event_type
-                    #print("{:<16}".format('Datum und Zeit: '),datetime_string)
-                    #print("{:<16}".format('Titel: '),re.sub(r'\s+',' ',event_title.lstrip()))
-                    #print("{:<16}".format('Typ: '),re.sub(r'\s+',' ',event_type.lstrip()))
-                    #print("{:<16}".format('Ort: '),re.sub(r'\s+',' ',event_location.lstrip()))
-                    #print("{:<16}".format('Beschreibung:'),'\n',event_details.lstrip())
-                    
+
                     events += [Event(
                         title = event_title,
                         start_date = dt.datetime.strptime(datetime_string, "%Y-%m-%d %H:%M"),
