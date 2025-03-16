@@ -1,6 +1,10 @@
 # DIDDI
 ## How to use with Docker
-0. Set variables in settings properly for docker usage
+Set variables in settings properly for docker usage
+### Option 1
+You can now run docker compose up and the image will be built and run on port 8866 (voila standard port).
+Openlocalhost:8866 in your browse
+### Option 2
 1. Dockerfile must be called Dockerfile without file-extension.
 2. run:
    ```

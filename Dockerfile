@@ -9,8 +9,8 @@ ENV LC_ALL=de_DE.UTF-8
 ENV LANG=de_DE.UTF-8
 ENV LANGUAGE=de_DE:de
 
-# Install Jupyter and dependencies
-RUN pip install --no-cache-dir jupyter notebook
+# Install Jupyter and Voila
+RUN pip install --no-cache-dir jupyter notebook voila
 
 # Set up the working directory
 WORKDIR /app
@@ -23,8 +23,9 @@ COPY . .
 # Set PYTHONPATH
 ENV PYTHONPATH=/app/src
 
-# Expose Jupyter Notebook port
-EXPOSE 8888
+# Expose Voila port
+EXPOSE 8866
 
-# Start Jupyter Notebook
-CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--NotebookApp.log_level=DEBUG"]
+# Start Voila serving main.ipynb
+CMD ["voila", "main.ipynb", "--no-browser", "--Voila.ip=0.0.0.0", "--Voila.port=8866"]
+
